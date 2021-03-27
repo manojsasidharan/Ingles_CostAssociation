@@ -1,6 +1,6 @@
 <mvc:View controllerName="com.ingles.retail_pricing.cost_association.controller.Master" height="100%" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar"
-	xmlns:vm="sap.ui.comp.variants">
+	xmlns:fm="sap.ui.layout.form" xmlns:vm="sap.ui.comp.variants">
 	<f:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}">
 		<!-- DynamicPage Title -->
 		<f:title>
@@ -19,14 +19,15 @@
 		<f:header>
 			<f:DynamicPageHeader pinnable="true">
 				<f:content>
-					<fb:FilterBar id="filterbar" reset="onReset" search="onSearch" useToolbar="false" showGoOnFB="true" showRestoreOnFB="true">
+					<fb:FilterBar id="filterbar" reset="onReset" search="onSearch" useToolbar="false" showGoOnFB="true">
+						<!--showRestoreOnFB="true">-->
 						<fb:filterItems>
 							<fb:FilterItem name="A" label="Price Family">
 								<fb:control>
 									<Select id="slName" forceSelection="true" change="onSelectChange" selectedKey="0">
 										<core:Item key="0" text=""/>
-										<core:Item key="001" text="4-91000-01134   BUD LONGNECK"/>
-										<core:Item key="002" text="4-91000-78130   VOSS WATER"/>
+										<core:Item key="001" text="4-91000-01134 BUD LONGNECK"/>
+										<core:Item key="002" text="4-91000-78130 VOSS WATER"/>
 									</Select>
 								</fb:control>
 							</fb:FilterItem>
@@ -41,7 +42,8 @@
 							</fb:FilterItem>
 							<fb:FilterItem name="B" label="Vendor">
 								<fb:control>
-									<MultiInput id="multiInput" valueHelpRequest=".onValueHelpRequested"  showSuggestion="true" tokenUpdate="ondel" suggestionRows="{ path: '/ProductCollection',length: 50 }">
+									<MultiInput id="multiInput" valueHelpRequest=".onValueHelpRequested" showSuggestion="true" tokenUpdate="ondel"
+										suggestionRows="{ path: '/ProductCollection',length: 50 }">
 										<suggestionColumns>
 											<Column>
 												<Label text="Vendor"/>
@@ -71,37 +73,61 @@
 									<DatePicker value="12/31/9999" valueFormat="MM/dd/yyyy"></DatePicker>
 								</fb:control>
 							</fb:FilterGroupItem>
-<!--							<fb:FilterItem name="Z2" label="Allowance">
+							<!--							<fb:FilterItem name="Z2" label="Allowance">
 								<fb:control>
 									<MultiInput id="allow" value="0.0" showValueHelp="false" liveChange="oncasecost"/>
 								</fb:control>
 							</fb:FilterItem>-->
-							<fb:FilterItem name="D" label="Case Cost" >
-								<fb:control>
-									<MultiInput id="case" liveChange="oncasecost"  showValueHelp="false"  value="1"/>
-								</fb:control>
-							</fb:FilterItem>
-							<fb:FilterItem name="E" label="Case Pack">
-								<fb:control>
-									<MultiInput id="casepack" editable="true" value="1" showValueHelp="false" liveChange="oncasecost"/>
-								</fb:control>
-							</fb:FilterItem>
-							
-							<fb:FilterItem name="F"  label="Unit Cost">
-								<fb:control>
-									<MultiInput id="unitCost" editable="false" value="1"/>
-								</fb:control>
-							</fb:FilterItem>
-							
 						</fb:filterItems>
 					</fb:FilterBar>
+					<fm:Form id="FormDisplayColumn_oneGroup" editable="true">
+						<fm:toolbar>
+							<Toolbar id="TB1">
+								<Title id="Title1" text="Mass Update" level="H2" titleStyle="H4"/>
+								<ToolbarSpacer/>
+								<Button text="Apply" press="onReset" type="Emphasized" icon="sap-icon://arrow-down"/>
+							</Toolbar>
+						</fm:toolbar>
+						<fm:layout>
+							<fm:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="6" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+								emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="4" singleContainerFullSize="false"/>
+						</fm:layout>
+						<fm:formContainers>
+							<fm:FormContainer>
+								<fm:formElements>
+									<fm:FormElement label="Case Cost">
+										<fm:fields>
+											<Input id="case" liveChange="oncasecost" showValueHelp="false" value="1" width="100px" textAlign="Right"/>
+										</fm:fields>
+									</fm:FormElement>
+								</fm:formElements>
+							</fm:FormContainer>
+							<fm:FormContainer >
+								<fm:formElements>
+									<fm:FormElement label="Case Pack">
+										<fm:fields>
+											<Input id="casepack" editable="true" value="1" showValueHelp="false" liveChange="oncasecost" width="100px" textAlign="Right"/>
+										</fm:fields>
+									</fm:FormElement>
+								</fm:formElements>
+							</fm:FormContainer>
+							<fm:FormContainer >
+								<fm:formElements>
+									<fm:FormElement label="Unit Cost">
+										<fm:fields>
+											<Input id="unitCost" editable="false" value="1" width="100px" textAlign="Right"/>
+										</fm:fields>
+									</fm:FormElement>
+								</fm:formElements>
+							</fm:FormContainer>
+						</fm:formContainers>
+					</fm:Form>
 				</f:content>
 			</f:DynamicPageHeader>
 		</f:header>
 		<!-- DynamicPage Content -->
 		<f:content>
 			<core:Fragment fragmentName="com.ingles.retail_pricing.cost_association.fragments.table" type="XML"/>
-			
 		</f:content>
 		<!-- DynamicPage Footer -->
 		<f:footer>

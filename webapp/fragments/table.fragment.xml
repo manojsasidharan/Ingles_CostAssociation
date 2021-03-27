@@ -23,7 +23,7 @@
 					<!--<Text text="{Material}" wrapping="false"/>-->
 				</table:template>
 			</table:Column>
-			<table:Column name="UPC" width="9rem" sortProperty="UPC" filterProperty="UPC" tooltip="UPC">
+			<table:Column name="UPC" width="8rem" sortProperty="UPC" filterProperty="UPC" tooltip="UPC">
 				<Label text="UPC" design="Bold" wrapping="true"/>
 				<table:template>
 					<Input value="{UPC}" editable="false"/>
@@ -38,9 +38,9 @@
 			<!--	</table:template>-->
 			<!--</table:Column>-->
 			<table:Column name="Description" width="15rem" sortProperty="Description" filterProperty="Description" tooltip="Description">
-				<Label text="Description" design="Bold" wrapping="true"/>
+				<Label text="Description" design="Bold" wrapping="false"/>
 				<table:template>
-					<Text text="{Description}" wrapping="true"/>
+					<Text text="{Description}" wrapping="false"/>
 				</table:template>
 			</table:Column>
 			<table:Column name="New" width="8rem" tooltip="New" headerSpan="2" hAlign="Center">
