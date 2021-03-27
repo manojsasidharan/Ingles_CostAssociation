@@ -268,18 +268,20 @@ sap.ui.define([
 			var model = this.getView().byId("Table").getModel();
 			var oRows = oTable.getModel().getData().Data,
 				cost, retailprice, calculated, finalcal, calculatedallow, finalallow;
-			var casecost = this.getView().byId("case").getValue();
-			var casepack = this.getView().byId("casepack").getValue();
-			var retailwithoutallowance = parseFloat(casecost, 2) / parseFloat(casepack,2);
+			// var casecost = this.getView().byId("case").getValue();
+			// var casepack = this.getView().byId("casepack").getValue();
+			// cost = this.getView().byId("unitCost").getValue();			
+			// var retailwithoutallowance = parseFloat(casecost, 2) / parseFloat(casepack,2);
 			// var allowance = this.getView().byId("allow").getValue();
+			var  allowance;
 			for (var i = 0; i < oRows.length; i++) {
-				cost = this.getView().byId("unitCost").getValue();
 
+				cost = model.getProperty("/Data/" + i + "/Price") / model.getProperty("/Data/" + i + "/Last_Cost");
+				allowance = model.getProperty("/Data/" + i + "/Allowance");
 				retailprice = model.getProperty("/Data/" + i + "/RetailPrice");
 
-				calculated = ((parseFloat(retailprice, 2) - parseFloat(retailwithoutallowance, 2)) / parseFloat(retailprice, 2)) * 100;
-				calculatedallow = ( (parseFloat(retailprice, 2) - parseFloat(cost, 2) ) / parseFloat(retailprice, 2)) *
-				100;
+				calculated = ((parseFloat(retailprice, 2) - parseFloat(cost, 2)) / parseFloat(retailprice, 2)) * 100;
+				calculatedallow = ( (parseFloat(retailprice, 2) - parseFloat(cost, 2) - parseFloat(allowance, 2)) / parseFloat(retailprice, 2)) *	100;
 				finalcal = calculated.toFixed(2);
 				finalallow = calculatedallow.toFixed(2);
 				var check = model.getProperty("/Data/" + i + "/Material");

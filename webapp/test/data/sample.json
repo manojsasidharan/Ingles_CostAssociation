@@ -1,4 +1,4 @@
-
+{ "/Data": [
 	{
 		"LocationCode": "1005",
 		"Material": "106216",
@@ -163,3 +163,4 @@
 		"RetailPrice": "2.00",
 		"effcost": "1.00"
 	}
+] }

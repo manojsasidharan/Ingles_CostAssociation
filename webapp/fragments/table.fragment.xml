@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table">
-	<table:Table id="Table" selectionMode="MultiToggle" visibleRowCount="10" alternateRowColors="true" fixedColumnCount="2" rowActionCount="1"
-		  enableGrouping="true" rowSelectionChange="onrow" threshold ="11">
+	<table:Table id="Table" selectionMode="MultiToggle" alternateRowColors="true" fixedColumnCount="2" rowActionCount="1" visibleRowCount="10"
+		  enableGrouping="true" rowSelectionChange="onrow" threshold="11">
 		<table:noData></table:noData>
 		<table:toolbar>
 			<Toolbar>
