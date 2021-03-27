@@ -1,0 +1,83 @@
+<core:FragmentDefinition
+		xmlns="sap.ui.comp.valuehelpdialog"
+		xmlns:m="sap.m"
+		xmlns:fb="sap.ui.comp.filterbar"
+		xmlns:core="sap.ui.core">
+	<ValueHelpDialog
+			title="Vendor"
+			ok=".onValueHelpWithSuggestionsOkPress"
+			cancel=".onValueHelpWithSuggestionsCancelPress"
+			afterClose=".onValueHelpWithSuggestionsAfterClose"
+			supportRanges="true"
+			key="ProductId"
+			descriptionKey="Name"
+	>
+		<filterBar>
+			<fb:FilterBar advancedMode="true" search=".onFilterBarWithSuggestionsSearch" >  <!--isRunningInValueHelpDialog="true"-->
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem
+							groupName="__$INTERNAL$"
+							name="ProductId"
+							label="Product ID"
+							visibleInFilterBar="true"
+					>
+						<fb:control>
+							<m:Input id="inputProductId"
+									 name="ProductId"
+									 showSuggestion="true"
+									 showValueHelp="false"
+									 suggestionItems="{
+										path: '/ProductCollection',
+										sorter: { path: 'ProductId' }
+									}"
+							>
+								<core:Item key="{ProductId}" text="{ProductId}" />
+							</m:Input>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem
+							groupName="__$INTERNAL$"
+							name="Name"
+							label="Vendor Name"
+							visibleInFilterBar="true"
+					>
+						<fb:control>
+							<m:Input id="inputProductName"
+									 name="Name"
+									 showSuggestion="true"
+									 showValueHelp="false"
+									 suggestionItems="{
+										path: '/ProductCollection',
+										sorter: { path: 'Name' }
+									}"
+							>
+								<core:Item key="{Name}" text="{Name}" />
+							</m:Input>
+						</fb:control>
+					</fb:FilterGroupItem>
+
+					<!--<fb:FilterGroupItem-->
+					<!--		groupName="__$INTERNAL$"-->
+					<!--		name="Category"-->
+					<!--		label="Category"-->
+					<!--		visibleInFilterBar="true"-->
+					<!-->-->
+					<!--	<fb:control>-->
+					<!--		<m:Input id="inputProductCategory"-->
+					<!--				 name="Category"-->
+					<!--				 showSuggestion="true"-->
+					<!--				 showValueHelp="false"-->
+					<!--				 suggestionItems="{-->
+					<!--					path: '/ProductCollection',-->
+					<!--					sorter: { path: 'Category' }-->
+					<!--				}"-->
+					<!--		>-->
+					<!--			<core:Item key="{Category}" text="{Category}" />-->
+					<!--		</m:Input>-->
+					<!--	</fb:control>-->
+					<!--</fb:FilterGroupItem>-->
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog>
+</core:FragmentDefinition>

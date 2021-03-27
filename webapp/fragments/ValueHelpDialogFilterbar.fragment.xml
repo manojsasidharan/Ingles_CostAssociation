@@ -1,0 +1,122 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:m="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core">
+	<ValueHelpDialog
+		title="Vendor"
+		ok=".onValueHelpOkPress"
+		cancel=".onValueHelpCancelPress"
+		afterClose=".onValueHelpAfterClose"
+		supportRanges="true"
+		key="ProductId"
+		descriptionKey="Name"
+	>
+		<filterBar>
+			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch" > <!--isRunningInValueHelpDialog="true"-->
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="ProductId"
+						label="Vendor"
+						visibleInFilterBar="true"
+					>
+						<fb:control>
+							<m:Input name="ProductId" />
+						</fb:control>
+					</fb:FilterGroupItem>
+
+					<fb:FilterGroupItem
+						groupName="__$INTERNAL$"
+						name="Name"
+						label="Vendor Name"
+						visibleInFilterBar="true"
+					>
+						<fb:control>
+							<m:Input name="Name" />
+						</fb:control>
+					</fb:FilterGroupItem>
+
+					<!--<fb:FilterGroupItem-->
+					<!--	groupName="__$INTERNAL$"-->
+					<!--	name="Category"-->
+					<!--	label="Category"-->
+					<!--	visibleInFilterBar="true"-->
+					<!-->-->
+					<!--	<fb:control>-->
+					<!--		<m:Input name="Category" />-->
+					<!--	</fb:control>-->
+					<!--</fb:FilterGroupItem>-->
+
+					<!--<fb:FilterGroupItem-->
+					<!--		groupName="__$INTERNAL$"-->
+					<!--		name="Category1"-->
+					<!--		label="Category 1"-->
+					<!--		visibleInFilterBar="true"-->
+					<!--	>-->
+					<!--	<fb:control>-->
+					<!--		<m:Input name="Category1" />-->
+					<!--	</fb:control>-->
+					<!--</fb:FilterGroupItem>-->
+
+					<!--<fb:FilterGroupItem-->
+					<!--		groupName="__$INTERNAL$"-->
+					<!--		name="Category2"-->
+					<!--		label="Category 2"-->
+					<!--		visibleInFilterBar="true"-->
+					<!--	>-->
+					<!--	<fb:control>-->
+					<!--		<m:Input name="Category2" />-->
+					<!--	</fb:control>-->
+					<!--</fb:FilterGroupItem>-->
+
+
+					<!--<fb:FilterGroupItem-->
+					<!--		groupName="__$INTERNAL$"-->
+					<!--		name="Category3"-->
+					<!--		label="Category 3"-->
+					<!--		visibleInFilterBar="true"-->
+					<!--	>-->
+					<!--	<fb:control>-->
+					<!--		<m:Input name="Category3" />-->
+					<!--	</fb:control>-->
+					<!--</fb:FilterGroupItem>-->
+
+					<!--<fb:FilterGroupItem-->
+					<!--		groupName="__$INTERNAL$"-->
+					<!--		name="Category4"-->
+					<!--		label="Category 4"-->
+					<!--		visibleInFilterBar="true"-->
+					<!--	>-->
+					<!--	<fb:control>-->
+					<!--		<m:Input name="Category4" />-->
+					<!--	</fb:control>-->
+					<!--</fb:FilterGroupItem>-->
+
+					<!--<fb:FilterGroupItem-->
+					<!--		groupName="__$INTERNAL$"-->
+					<!--		name="Category5"-->
+					<!--		label="Category 5"-->
+					<!--		visibleInFilterBar="true"-->
+					<!--	>-->
+					<!--	<fb:control>-->
+					<!--		<m:Input name="Category5" />-->
+					<!--	</fb:control>-->
+					<!--</fb:FilterGroupItem>-->
+
+					<!--<fb:FilterGroupItem-->
+					<!--		groupName="__$INTERNAL$"-->
+					<!--		name="Category6"-->
+					<!--		label="Category 6"-->
+					<!--		visibleInFilterBar="true"-->
+					<!--	>-->
+					<!--	<fb:control>-->
+					<!--		<m:Input name="Category6" />-->
+					<!--	</fb:control>-->
+					<!--</fb:FilterGroupItem>-->
+				
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog>
+</core:FragmentDefinition>

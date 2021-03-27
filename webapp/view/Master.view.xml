@@ -1,0 +1,117 @@
+<mvc:View controllerName="com.ingles.retail_pricing.cost_association.controller.Master" height="100%" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:vm="sap.ui.comp.variants">
+	<f:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<vm:VariantManagement standardItemText="My Cost Association"></vm:VariantManagement>
+				</f:heading>
+				<f:actions>
+					<ToolbarSpacer/>
+					<Button id="iclone" visible="false" text="Clone" icon="sap-icon://copy" type="Emphasized" press="onCopyRows"/>
+					<Button id="isave" visible="false" text="Save" type="Accept" press="onsave"/>
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<!-- DynamicPage Header -->
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<f:content>
+					<fb:FilterBar id="filterbar" reset="onReset" search="onSearch" useToolbar="false" showGoOnFB="true" showRestoreOnFB="true">
+						<fb:filterItems>
+							<fb:FilterItem name="A" label="Price Family">
+								<fb:control>
+									<Select id="slName" forceSelection="true" change="onSelectChange" selectedKey="0">
+										<core:Item key="0" text=""/>
+										<core:Item key="001" text="4-91000-01134   BUD LONGNECK"/>
+										<core:Item key="002" text="4-91000-78130   VOSS WATER"/>
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="C" label="Show No Link">
+								<fb:control>
+									<Switch state="true">
+										<layoutData>
+											<FlexItemData growFactor="1"/>
+										</layoutData>
+									</Switch>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="B" label="Vendor">
+								<fb:control>
+									<MultiInput id="multiInput" valueHelpRequest=".onValueHelpRequested"  showSuggestion="true" tokenUpdate="ondel" suggestionRows="{ path: '/ProductCollection',length: 50 }">
+										<suggestionColumns>
+											<Column>
+												<Label text="Vendor"/>
+											</Column>
+											<Column>
+												<Label text="Vendor Name"/>
+											</Column>
+										</suggestionColumns>
+										<suggestionRows>
+											<ColumnListItem>
+												<cells>
+													<Label text="{ProductId}"/>
+													<Label text="{Name}"/>
+												</cells>
+											</ColumnListItem>
+										</suggestionRows>
+									</MultiInput>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterGroupItem groupName="G2" name="N" label="Date From" visibleInAdvancedArea="true">
+								<fb:control>
+									<DatePicker id="date" value="02/17/2021" valueFormat="MM/dd/yyyy"></DatePicker>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="G2" name="O" label="Date To" visibleInAdvancedArea="false">
+								<fb:control>
+									<DatePicker value="12/31/9999" valueFormat="MM/dd/yyyy"></DatePicker>
+								</fb:control>
+							</fb:FilterGroupItem>
+<!--							<fb:FilterItem name="Z2" label="Allowance">
+								<fb:control>
+									<MultiInput id="allow" value="0.0" showValueHelp="false" liveChange="oncasecost"/>
+								</fb:control>
+							</fb:FilterItem>-->
+							<fb:FilterItem name="D" label="Case Cost" >
+								<fb:control>
+									<MultiInput id="case" liveChange="oncasecost"  showValueHelp="false"  value="1"/>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="E" label="Case Pack">
+								<fb:control>
+									<MultiInput id="casepack" editable="true" value="1" showValueHelp="false" liveChange="oncasecost"/>
+								</fb:control>
+							</fb:FilterItem>
+							
+							<fb:FilterItem name="F"  label="Unit Cost">
+								<fb:control>
+									<MultiInput id="unitCost" editable="false" value="1"/>
+								</fb:control>
+							</fb:FilterItem>
+							
+						</fb:filterItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<!-- DynamicPage Content -->
+		<f:content>
+			<core:Fragment fragmentName="com.ingles.retail_pricing.cost_association.fragments.table" type="XML"/>
+			
+		</f:content>
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar>
+				<Button id="messagePopoverBtn" icon="sap-icon://message-popup" type="Emphasized" text="{= ${message>/}.length }"
+					visible="{= ${message>/}.length > 0 }" press="handleMessagePopoverPress"/>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Accept"/>
+				<Button type="Reject" text="Reject"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

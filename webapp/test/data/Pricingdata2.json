@@ -1,0 +1,53 @@
+{
+	"Data": [{
+		"LocationCode": "1005",
+		"Material": "10114996",
+		"Vendor": "00000670",
+		"Description": "VOSS WATER PET BTLS",
+		"valid_from": "6/28/2009",
+		"valid_to": "12/31/9999",
+		"Last_Cost": "4.00 P6",
+		"Price": "20.53",
+		"Margin": "34.36",
+		"Unit_sell": "0.80",
+		"Multiplier": "5",
+		"Vendor_item": "00340009",
+		"Allowance": "0.00",
+		"Vendor_desc": "Skyland Distributing",
+		"UPC": "6-82430-40009",
+		"RetailPrice": "2.00",
+		"effcost": "1.00"
+		
+	}, {
+		"LocationCode": "1710",
+		"Material": "10114996",
+		"Vendor": "00000670",
+		"Description": "VOSS WATER PET BTLS",
+		"valid_from": "5/2/2021",
+		"valid_to": "12/31/9999",
+		"Last_Cost": "4.00 P6",
+		"Price": "20.53",
+		"Margin": "57.04",
+		"Unit_sell": "3.98",
+		"Multiplier": "1",
+		"Vendor_item": "00320025",
+		"Allowance": "0.00",
+		"Vendor_desc": "Skyland Distributing",
+		"UPC": "6-82430-20025",
+		"RetailPrice": "2.00",
+		"effcost": "1.00"
+		
+	}
+	],
+	"items": [],
+	"uploadState": "Complete",
+	"markers": [{
+		"type": "Draft"
+	}],
+	"statuses": [{
+		"title": "Advanced",
+		"text": "Success",
+		"state": "Success",
+		"icon": "sap-icon://message-success"
+	}]
+}

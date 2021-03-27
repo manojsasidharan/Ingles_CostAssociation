@@ -1,0 +1,6 @@
+<mvc:View controllerName="com.ingles.retail_pricing.cost_association.controller.App" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns="sap.m">
+	<Shell id="shell">
+		<App id="app"/>
+	</Shell>
+</mvc:View>
