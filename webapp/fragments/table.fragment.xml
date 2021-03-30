@@ -50,7 +50,7 @@
 				</table:multiLabels>
 				<table:template>
 					<HBox>
-						<Input value="{Price}" width="4rem" editable="false" liveChange="selectline"/>
+						<Input value="{Price}" width="4rem" editable="false" liveChange="selectline" textAlign="Right"/>
 						<Button icon="sap-icon://reset" class="size1 sapUiTinyMarginBegin" press="onreset"/>
 					</HBox>
 				</table:template>
@@ -76,7 +76,7 @@
 			<!--		<DatePicker value="{valid_to}" valueFormat="MM/dd/yyyy" editable="false"></DatePicker>-->
 			<!--	</table:template>-->
 			<!--</table:Column>-->
-			<table:Column name="Last_Cost" width="4rem" tooltip="Last Cost">
+			<table:Column name="Last_Cost" width="4rem" tooltip="Last Cost" hAlign="Center">
 				<Label text="Case Pack" wrapping="true" design="Bold"/>
 				<table:template>
 					<Text text="{Last_Cost}" wrapping="false"/>
@@ -101,17 +101,18 @@
 					<Text text="{Vendor_item}" wrapping="false"/>
 				</table:template>
 			</table:Column>
-			<table:Column name="Effective" width="5rem" tooltip="Effective Cost" hAlign="Center">
+			<table:Column name="Effective" width="5rem" tooltip="Effective Cost" hAlign="Center" >
 				<!--<table:multiLabels>-->
 				<Label text="Effective Cost" design="Bold" wrapping="true"/>
 				<!--	<Label text="Cost"/>-->
 				<!--</table:multiLabels>-->
 				<table:template>
-					<HBox>
-						<Label text="{effcost}"/>
+					<Label text="{effcost}" />
+					<!--<HBox>-->
+						<!--<Label text="{effcost}" />-->
 						<!--<Input value= width="4rem" editable="false" liveChange="selectline"/>-->
 						<!--<Button icon="sap-icon://reset" class="size1 sapUiTinyMarginBegin" press="onreset"/>-->
-					</HBox>
+					<!--</HBox>-->
 				</table:template>
 			</table:Column>
 			<!--<table:Column name="valid_from" width="6rem" tooltip="Valid From" hAlign="Center">-->
@@ -124,23 +125,24 @@
 			<!--<DatePicker value="{valid_from}" valueFormat="MM/dd/yyyy" editable="false"></DatePicker>-->
 			<!--	</table:template>-->
 			<!--</table:Column>-->
-			<table:Column name="Allowance" width="5.2rem" tooltip="Allowance">
+			<table:Column name="Allowance" width="5.2rem" tooltip="Allowance" hAlign="Center">
 				<Label text="Allowance" wrapping="true" design="Bold"/>
 				<table:template>
 					<Text text="{Allowance}" wrapping="false"/>
 				</table:template>
 			</table:Column>
-			<table:Column name="Retail" width="5rem" tooltip="Retail" headerSpan="2" hAlign="Center">
+			<table:Column name="Retail" width="5rem" tooltip="Retail" headerSpan="2"  hAlign="Center">
 				<table:multiLabels>
-					<Label text="Retail" design="Bold"/>
+					<Label text="Retail" design="Bold" />
 					<Label text="Price"/>
 				</table:multiLabels>
 				<table:template>
-					<HBox>
-						<Label text="{RetailPrice}"></Label>
+					<Label text="{RetailPrice}" />
+					<!--<HBox>-->
+						<!--<Label text="{RetailPrice}" />-->
 						<!--<Input value="" width="4rem" editable="false" liveChange="selectline"/>-->
 						<!--<Button icon="sap-icon://reset" class="size1 sapUiTinyMarginBegin" press="onreset"/>-->
-					</HBox>
+					<!--</HBox>-->
 				</table:template>
 			</table:Column>
 			<table:Column name="gm_p" width="5rem" tooltip="GM %" hAlign="Center">

@@ -10,7 +10,7 @@
 				</f:heading>
 				<f:actions>
 					<ToolbarSpacer/>
-					<Button id="iclone" visible="false" text="Clone" icon="sap-icon://copy" type="Emphasized" press="onCopyRows"/>
+				<!--	<Button id="iclone" visible="false" text="Clone" icon="sap-icon://copy" type="Emphasized" press="onCopyRows"/>-->
 					<Button id="isave" visible="false" text="Save" type="Accept" press="onsave"/>
 				</f:actions>
 			</f:DynamicPageTitle>
@@ -70,7 +70,7 @@
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem groupName="G2" name="O" label="Date To" visibleInAdvancedArea="false">
 								<fb:control>
-									<DatePicker value="12/31/9999" valueFormat="MM/dd/yyyy"></DatePicker>
+									<DatePicker value="12/31/9999" valueFormat="MM/dd/yyyy" width="120px"/>
 								</fb:control>
 							</fb:FilterGroupItem>
 							<!--							<fb:FilterItem name="Z2" label="Allowance">

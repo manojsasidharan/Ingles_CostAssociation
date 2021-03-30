@@ -15,7 +15,7 @@
 		"Allowance": "0.00",
 		"Vendor_desc": "Budweiser of Asheville",
 		"UPC": "18200-00769",
-		"RetailPrice": "2.00",
+		"RetailPrice": "11.27",
 		"effcost": "1.00"
 		
 	}, {
@@ -34,7 +34,7 @@
 		"Allowance": "0.00",
 		"Vendor_desc": "Budweiser of Asheville",
 		"UPC": "18200-00771",
-		"RetailPrice": "2.00",
+		"RetailPrice": "11.27",
 		"effcost": "1.00"
 		
 	}, {
@@ -53,7 +53,7 @@
 		"Allowance": "0.00",
 		"Vendor_desc": "Budweiser of Asheville",
 		"UPC": "18200-07986",
-		"RetailPrice": "2.00",
+		"RetailPrice": "11.27",
 		"effcost": "1.00"
 	}, {
 		"LocationCode": "1710",
@@ -71,7 +71,7 @@
 		"Allowance": "0.00",
 		"Vendor_desc": "Budweiser of Asheville",
 		"UPC": "18200-15997",
-		"RetailPrice": "2.00",
+		"RetailPrice": "11.27",
 		"effcost": "1.00"
 	}
 	],

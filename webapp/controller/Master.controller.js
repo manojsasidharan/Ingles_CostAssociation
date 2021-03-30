@@ -115,8 +115,8 @@ sap.ui.define([
 			var calculated = ((parseFloat(retailprice, 2) - parseFloat(retailwithoutallowance, 2)) / parseFloat(retailprice, 2)) * 100;
 			calculatedallow = ( (parseFloat(retailprice, 2) - parseFloat(cost, 2) - parseFloat(allowance, 2) ) / parseFloat(retailprice, 2)) *	100;
 
-			var finalcal = calculated.toFixed(2);
-			finalallow = calculatedallow.toFixed(2);
+			var finalcal = isNaN(calculated) ? 0 : calculated.toFixed(2);
+			finalallow = isNaN(calculatedallow) ? 0 : calculatedallow.toFixed(2);
 			var check = model.getProperty("/Data/" + row + "/Material");
 			if (check !== "") {
 				model.setProperty("/Data/" + row + "/gm", finalcal);
@@ -282,8 +282,8 @@ sap.ui.define([
 
 				calculated = ((parseFloat(retailprice, 2) - parseFloat(cost, 2)) / parseFloat(retailprice, 2)) * 100;
 				calculatedallow = ( (parseFloat(retailprice, 2) - parseFloat(cost, 2) - parseFloat(allowance, 2)) / parseFloat(retailprice, 2)) *	100;
-				finalcal = calculated.toFixed(2);
-				finalallow = calculatedallow.toFixed(2);
+				finalcal = isNaN(calculated) ? 0 : calculated.toFixed(2);
+				finalallow = isNaN(calculatedallow) ? 0 : calculatedallow.toFixed(2);
 				var check = model.getProperty("/Data/" + i + "/Material");
 
 				if (check === "") {
@@ -307,7 +307,7 @@ sap.ui.define([
 			this.getView().byId("Tcreate").setVisible(true);
 
 			//this.getView().byId("BCopy").setVisible(true);
-			this.getView().byId("iclone").setVisible(true);
+			// this.getView().byId("iclone").setVisible(true);
 			this.getView().byId("isave").setVisible(true);
 
 		},
