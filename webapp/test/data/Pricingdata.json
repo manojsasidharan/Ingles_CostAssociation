@@ -6,17 +6,17 @@
 		"Description": "BUD LIGHT LONGNECK 12PK BTLS",
 		"valid_from": "6/28/2009",
 		"valid_to": "12/31/9999",
-		"Last_Cost": "2.00 OZ",
+		"Last_Cost": "2.00",
 		"Price": "20.53",
 		"Margin": "34.36",
 		"Unit_sell": "0.80",
 		"Multiplier": "5",
 		"Vendor_item": "00200769",
-		"Allowance": "0.00",
+		"Allowance": "1.80",
 		"Vendor_desc": "Budweiser of Asheville",
 		"UPC": "18200-00769",
 		"RetailPrice": "11.27",
-		"effcost": "1.00"
+		"effcost": "20.53"
 		
 	}, {
 		"LocationCode": "1710",
@@ -25,17 +25,17 @@
 		"Description": "BUDWEISER LONGNECK 12PK BTLS",
 		"valid_from": "5/2/2021",
 		"valid_to": "12/31/9999",
-		"Last_Cost": "2.00 OZ",
+		"Last_Cost": "2.00",
 		"Price": "20.53",
 		"Margin": "57.04",
 		"Unit_sell": "3.98",
 		"Multiplier": "1",
 		"Vendor_item": "00200771",
-		"Allowance": "0.00",
+		"Allowance": "1.80",
 		"Vendor_desc": "Budweiser of Asheville",
 		"UPC": "18200-00771",
 		"RetailPrice": "11.27",
-		"effcost": "1.00"
+		"effcost": "20.53"
 		
 	}, {
 		"LocationCode": "1710",
@@ -44,17 +44,17 @@
 		"Description": "BUDWEISER SELECT BOTTLES",
 		"valid_from": "1/30/2020",
 		"valid_to": "12/31/9999",
-		"Last_Cost": "2.00 P12",
+		"Last_Cost": "2.00",
 		"Price": "20.53",
 		"Margin": "57.04",
 		"Unit_sell": "3.98",
 		"Multiplier": "1",
 		"Vendor_item": "00207986",
-		"Allowance": "0.00",
+		"Allowance": "1.80",
 		"Vendor_desc": "Budweiser of Asheville",
 		"UPC": "18200-07986",
 		"RetailPrice": "11.27",
-		"effcost": "1.00"
+		"effcost": "20.53"
 	}, {
 		"LocationCode": "1710",
 		"Material": "10035026",
@@ -62,17 +62,17 @@
 		"Description": "SELECT 55 12PK BOTTLES",
 		"valid_from": "1/30/2020",
 		"valid_to": "12/31/9999",
-		"Last_Cost": "2.00 OZ",
+		"Last_Cost": "2.00",
 		"Price": "20.53",
 		"Margin": "57.04",
 		"Unit_sell": "3.98",
 		"Multiplier": "1",
 		"Vendor_item": "00215997",
-		"Allowance": "0.00",
+		"Allowance": "1.80",
 		"Vendor_desc": "Budweiser of Asheville",
 		"UPC": "18200-15997",
 		"RetailPrice": "11.27",
-		"effcost": "1.00"
+		"effcost": "20.53"
 	}
 	],
 	"items": [],

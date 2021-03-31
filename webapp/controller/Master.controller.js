@@ -36,6 +36,7 @@ sap.ui.define([
 			this._oMultiInput.addValidator(this._onMultiInputValidate);
 			this._oMultiInput.setTokens(this._getDefaultTokens());
 			this.getView().byId("slName").setEnabled(false);
+			this.getView().byId("strategy").setEnabled(false);
 			var scPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/columnsModel.json");
 			this.oColModel = new JSONModel(scPath);
 			var sPPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/products.json");
@@ -102,17 +103,17 @@ sap.ui.define([
 
 		calculate: function (row, oTable) {
 
-			var cost = this.getView().byId("unitCost").getValue();
+			// var cost = this.getView().byId("unitCost").getValue();
 			var model = this.getView().byId("Table").getModel();
 			var retailprice = model.getProperty("/Data/" + row + "/RetailPrice");
 			var allowance = model.getProperty("/Data/" + row + "/Allowance");
+			var cost = model.getProperty("/Data/" + row + "/Price") / model.getProperty("/Data/" + row + "/Last_Cost");
 			allowance = (isNaN(allowance))? 0 : allowance;
 			var calculatedallow, finalallow;
-			var casecost = this.getView().byId("case").getValue();
-			var casepack = this.getView().byId("casepack").getValue();
-			var retailwithoutallowance = parseFloat(casecost, 2) / parseFloat(casepack,2);
+/*			var casecost = this.getView().byId("case").getValue();
+			var casepack = this.getView().byId("casepack").getValue();*/
 
-			var calculated = ((parseFloat(retailprice, 2) - parseFloat(retailwithoutallowance, 2)) / parseFloat(retailprice, 2)) * 100;
+			var calculated = ((parseFloat(retailprice, 2) - parseFloat(cost, 2)) / parseFloat(retailprice, 2)) * 100;
 			calculatedallow = ( (parseFloat(retailprice, 2) - parseFloat(cost, 2) - parseFloat(allowance, 2) ) / parseFloat(retailprice, 2)) *	100;
 
 			var finalcal = isNaN(calculated) ? 0 : calculated.toFixed(2);
@@ -146,14 +147,15 @@ sap.ui.define([
 			//this.getView().byId("messagepage").setVisible(false);
 			var primary = this.getView().byId("slName").getEnabled();
 			var select = this.getView().byId("slName").getSelectedKey();
+			var strategy = this.getView().byId("strategy").getSelectedKey();
 			var conditionTable = this.getView().byId("Table");
-			var casecost = this.getView().byId("case").getValue();
+			// var casecost = this.getView().byId("case").getValue();
 			var count = this.getView().byId("Table").getBinding().iLength;
 			var afilters = [];
 			var tokens = this.getView().byId("multiInput").getTokens();
 
-			if (select === "0" & primary) {
-				MessageToast.show("Please select Price Family or Vendor");
+			if ((select === "0" && strategy==="0") & primary ) {
+				MessageToast.show("Please select Price Family, Price Strategy or Vendor");
 				return;
 			}
 			// if(casecost === ""){
@@ -162,7 +164,7 @@ sap.ui.define([
 			// }
 			if (primary) {
 
-				if (select === "001") {
+				if (select === "001" || strategy === "207") {
 					this.getView().byId("Ttitle").setText("Cost Association (" + 4 + ")");
 					var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata.json");
 
@@ -206,7 +208,7 @@ sap.ui.define([
 				conditionTable.setEnableSelectAll(true);
 				conditionTable.removeSelectionInterval(0, 3);
 			}
-			this.getView().byId("Table").rerender();
+			// this.getView().byId("Table").rerender();
 			this.getView().byId("Table").getModel().refresh();
 			this.onfirstdisplay();
 
@@ -442,11 +444,12 @@ sap.ui.define([
 
 			var primary = this.getView().byId("slName").getEnabled();
 			var select = this.getView().byId("slName").getSelectedKey();
+			var strategy = this.getView().byId("strategy").getSelectedKey();
 			var conditionTable = this.getView().byId("Table");
 			if (primary) {
-				if (select === "001") {
+				if (select === "001" || strategy === "207") {
 					conditionTable.addSelectionInterval(0, iIndex.length - 1);
-				} else if (select === "002") {
+				} else if (select === "002" || strategy === "001") {
 					conditionTable.addSelectionInterval(0, iIndex.length - 1);
 				}
 			}
@@ -497,11 +500,12 @@ sap.ui.define([
 		onSync: function (oEvent) {
 			var primary = this.getView().byId("slName").getEnabled();
 			var select = this.getView().byId("slName").getSelectedKey();
+			var strategy = this.getView().byId("strategy").getSelectedKey();
 			var afilters = [];
 			var tokens = this.getView().byId("multiInput").getTokens();
 			var count = this.getView().byId("Table").getBinding().iLength;
 			if (primary) {
-				if (select === "001") {
+				if (select === "001"  || strategy === "207") {
 					var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata.json");
 					this.getView().byId("Ttitle").setText("Cost Association (" + 4 + ")");
 				} else {
@@ -584,6 +588,7 @@ sap.ui.define([
 			var tokens = oEvent.getSource().getTokens();
 			if (tokens.length === 1) {
 				this.getView().byId("slName").setEnabled(true);
+				this.getView().byId("strategy").setEnabled(true);
 			}
 		},
 		_getDefaultTokens: function () {
@@ -682,8 +687,10 @@ sap.ui.define([
 
 			if (aTokens.length === 0) {
 				this.getView().byId("slName").setEnabled(true);
+				this.getView().byId("strategy").setEnabled(true);
 			} else {
 				this.getView().byId("slName").setEnabled(false);
+				this.getView().byId("strategy").setEnabled(false);
 			}
 		},
 
@@ -863,14 +870,17 @@ sap.ui.define([
 		selectline: function (oEvent) {
 			var table = this.getView().byId("Table"),
 				oRow = oEvent.getSource().getParent().getParent().getBindingContext().getPath().slice(6);
+					this.calculate(oRow, table);
 			table.addSelectionInterval(oRow, oRow);
 		},
 		onreset: function (oEvent) {
 			var primary = this.getView().byId("slName").getEnabled();
 			var select = this.getView().byId("slName").getSelectedKey();
+			var strategy = this.getView().byId("strategy").getSelectedKey();
+
 
 			if (primary) {
-				if (select === "001") {
+				if (select === "001" || strategy === "207") {
 					var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata.json");
 				} else {
 					sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata2.json");

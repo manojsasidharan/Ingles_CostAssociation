@@ -57,7 +57,7 @@
 		},
 		"config": {
 			"fullWidth": true
-		},		
+		},
 		"contentDensities": {
 			"compact": true,
 			"cozy": true

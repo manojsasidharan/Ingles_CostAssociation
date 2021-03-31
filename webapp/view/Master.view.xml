@@ -19,10 +19,9 @@
 		<f:header>
 			<f:DynamicPageHeader pinnable="true">
 				<f:content>
-					<fb:FilterBar id="filterbar" reset="onReset" search="onSearch" useToolbar="false" showGoOnFB="true">
-						<!--showRestoreOnFB="true">-->
-						<fb:filterItems>
-							<fb:FilterItem name="A" label="Price Family">
+						<fb:FilterBar id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="true" >
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem groupName="G2" name="A" label="Price Family" visibleInFilterBar="true">
 								<fb:control>
 									<Select id="slName" forceSelection="true" change="onSelectChange" selectedKey="0">
 										<core:Item key="0" text=""/>
@@ -30,8 +29,26 @@
 										<core:Item key="002" text="4-91000-78130 VOSS WATER"/>
 									</Select>
 								</fb:control>
-							</fb:FilterItem>
-							<fb:FilterItem name="C" label="Show No Link">
+							</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="G2" name="K" label="Price Strategy" visibleInFilterBar="true" >
+						<fb:control>
+							<Select id="strategy" forceSelection="false" >
+								<core:Item key="0" text=""/>
+								<core:Item key="207" text="207 GA-I-Market"/>
+								<core:Item key="001" text="001 Ingles"/>
+								<core:Item key="002" text="002 Sav-Mor"/>
+								<core:Item key="003" text="003 I-Markets"/>
+								<core:Item key="201" text="201 AL-Ingles"/>
+								<core:Item key="202" text="202 AL-Sav-Mor"/>
+								<core:Item key="203" text="203 AL-I-Market"/>
+								<core:Item key="204" text="204 GA-Ingles"/>
+								<core:Item key="205" text="205 GA-Sav-Mor"/>
+								<core:Item key="206" text="206 GA-I-Market"/>
+								<core:Item key="213" text="213 TN- Ingles"/>
+							</Select>
+						</fb:control>
+					</fb:FilterGroupItem>							
+							<fb:FilterGroupItem groupName="G2" name="C" label="Show No Link" visibleInFilterBar="true">
 								<fb:control>
 									<Switch state="true">
 										<layoutData>
@@ -39,8 +56,8 @@
 										</layoutData>
 									</Switch>
 								</fb:control>
-							</fb:FilterItem>
-							<fb:FilterItem name="B" label="Vendor">
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="G2" name="B" label="Vendor" visibleInFilterBar="true">
 								<fb:control>
 									<MultiInput id="multiInput" valueHelpRequest=".onValueHelpRequested" showSuggestion="true" tokenUpdate="ondel"
 										suggestionRows="{ path: '/ProductCollection',length: 50 }">
@@ -62,23 +79,18 @@
 										</suggestionRows>
 									</MultiInput>
 								</fb:control>
-							</fb:FilterItem>
-							<fb:FilterGroupItem groupName="G2" name="N" label="Date From" visibleInAdvancedArea="true">
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="G2" name="N" label="Date From" visibleInFilterBar="true">
 								<fb:control>
 									<DatePicker id="date" value="02/17/2021" valueFormat="MM/dd/yyyy"></DatePicker>
 								</fb:control>
 							</fb:FilterGroupItem>
-							<fb:FilterGroupItem groupName="G2" name="O" label="Date To" visibleInAdvancedArea="false">
+<!--							<fb:FilterGroupItem groupName="G2" name="O" label="Date To" visibleInFilterBar="true">
 								<fb:control>
 									<DatePicker value="12/31/9999" valueFormat="MM/dd/yyyy" width="120px"/>
 								</fb:control>
-							</fb:FilterGroupItem>
-							<!--							<fb:FilterItem name="Z2" label="Allowance">
-								<fb:control>
-									<MultiInput id="allow" value="0.0" showValueHelp="false" liveChange="oncasecost"/>
-								</fb:control>
-							</fb:FilterItem>-->
-						</fb:filterItems>
+							</fb:FilterGroupItem>-->
+						</fb:filterGroupItems>
 					</fb:FilterBar>
 					<fm:Form id="FormDisplayColumn_oneGroup" editable="true">
 						<fm:toolbar>

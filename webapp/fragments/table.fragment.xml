@@ -50,7 +50,7 @@
 				</table:multiLabels>
 				<table:template>
 					<HBox>
-						<Input value="{Price}" width="4rem" editable="false" liveChange="selectline" textAlign="Right"/>
+						<Input value="{Price}" width="4rem" editable="false" textAlign="Right" change="selectline"/>
 						<Button icon="sap-icon://reset" class="size1 sapUiTinyMarginBegin" press="onreset"/>
 					</HBox>
 				</table:template>
