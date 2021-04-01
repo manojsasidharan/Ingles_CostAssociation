@@ -97,7 +97,7 @@
 							<Toolbar id="TB1">
 								<Title id="Title1" text="Mass Update" level="H2" titleStyle="H4"/>
 								<ToolbarSpacer/>
-								<Button text="Apply" press="onReset" type="Emphasized" icon="sap-icon://arrow-down"/>
+								<Button text="Apply" press="onApplyMassUpdate" type="Emphasized" icon="sap-icon://arrow-down"/>
 							</Toolbar>
 						</fm:toolbar>
 						<fm:layout>

@@ -1,15 +1,15 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table">
-	<table:Table id="Table" selectionMode="MultiToggle" alternateRowColors="true" fixedColumnCount="2" rowActionCount="1" visibleRowCount="10"
+	<table:Table id="Table" selectionMode="MultiToggle" alternateRowColors="true" fixedColumnCount="2" visibleRowCount="10"
 		  enableGrouping="true" rowSelectionChange="onrow" threshold="11">
 		<table:noData></table:noData>
 		<table:toolbar>
 			<Toolbar>
 				<Title id="Ttitle" text="Cost Association(9)"/>
 				<ToolbarSpacer/>
-				<Button id="BCopy" icon="sap-icon://copy" text="Copy" visible="false" type="Transparent" press="ongroup"/>
-				<Button id="Tfilter" icon="sap-icon://clear-filter" tooltip="Clear all filters" press="clearAllFilters" visible="false"/>
+				<Button id="Tcreate" icon="sap-icon://add" tooltip="Add new rows" press="onAddRows" visible="false"></Button>				
+				<Button id="Tfilter" icon="sap-icon://less" tooltip="Delete" visible="false" press="onDeletePress"/>    <!--press="clearAllFilters"-->
 				<Button id="Treset" icon="sap-icon://synchronize" tooltip="Synchronize Data" press="onSync" width="auto" visible="false"/>
-				<Button id="Tcreate" icon="sap-icon://create-form" tooltip="Add new rows" press="onAddRows" visible="false"></Button>
+				<Button id="BCopy" icon="sap-icon://copy" text="Copy" visible="false" type="Transparent" press="ongroup"/>				
 			</Toolbar>
 		</table:toolbar>
 		<table:rowSettingsTemplate>
@@ -37,7 +37,7 @@
 			<!--<Text text="{Vendor}" wrapping="false"/>-->
 			<!--	</table:template>-->
 			<!--</table:Column>-->
-			<table:Column name="Description" width="15rem" sortProperty="Description" filterProperty="Description" tooltip="Description">
+			<table:Column name="Description"  sortProperty="Description" filterProperty="Description" tooltip="Description">  <!--width="15rem"-->
 				<Label text="Description" design="Bold" wrapping="false"/>
 				<table:template>
 					<Text text="{Description}" wrapping="false"/>
@@ -76,7 +76,7 @@
 			<!--		<DatePicker value="{valid_to}" valueFormat="MM/dd/yyyy" editable="false"></DatePicker>-->
 			<!--	</table:template>-->
 			<!--</table:Column>-->
-			<table:Column name="Last_Cost" width="4rem" tooltip="Last Cost" hAlign="Center">
+			<table:Column name="Last_Cost" width="3.5rem" tooltip="Last Cost" hAlign="Center">
 				<Label text="Case Pack" wrapping="true" design="Bold"/>
 				<table:template>
 					<Text text="{Last_Cost}" wrapping="false"/>
@@ -95,10 +95,10 @@
 					<Text text="{Vendor_desc}" wrapping="false"/>
 				</table:template>
 			</table:Column>
-			<table:Column name="Vendor_item" width="5rem" tooltip="Vendor Item #">
+			<table:Column name="Vendor_item" width="5rem" tooltip="Vendor Item #" hAlign="Center">
 				<Label text="Vendor Item #" wrapping="true" design="Bold" />
 				<table:template>
-					<Text text="{Vendor_item}" wrapping="false"/>
+					<Text text="{ path : 'Vendor_item',  type : 'sap.ui.model.odata.type.String',  constraints: { isDigitSequence : true,  maxLength : 8  }}" wrapping="false"/>
 				</table:template>
 			</table:Column>
 			<table:Column name="Effective" width="5rem" tooltip="Effective Cost" hAlign="Center" >
@@ -179,10 +179,10 @@
 			<!--	</table:template>-->
 			<!--</table:Column>-->
 		</table:columns>
-		<table:rowActionTemplate>
+<!--		<table:rowActionTemplate>
 			<table:RowAction>
 				<table:RowActionItem type="Delete" text="Delete" press="onDeletePress"></table:RowActionItem>
 			</table:RowAction>
-		</table:rowActionTemplate>
+		</table:rowActionTemplate>-->
 	</table:Table>
 </core:FragmentDefinition>

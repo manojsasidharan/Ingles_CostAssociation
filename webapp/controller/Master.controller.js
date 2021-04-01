@@ -314,17 +314,34 @@ sap.ui.define([
 
 		},
 		onDeletePress: function (oEvent) {
-			var itemModel = this.getView().byId("Table").getModel(),
-				conditionTable = this.getView().byId("Table"),
-				oRow = oEvent.getParameter("row"),
-				sIndex = oRow.getBindingContext().sPath.split("/")[2];
-			var length = this.getView().byId("Table").getModel().getData().Data.length - 1;
-			itemModel.getData().Data.splice(sIndex, 1);
-			itemModel.refresh();
+			// var itemModel = this.getView().byId("Table").getModel(),
+			// 	conditionTable = this.getView().byId("Table"),
+			// 	oRow = oEvent.getParameter("row"),
+			// 	sIndex = oRow.getBindingContext().sPath.split("/")[2];
+			// var length = this.getView().byId("Table").getModel().getData().Data.length - 1;
+			// itemModel.getData().Data.splice(sIndex, 1);
+			// itemModel.refresh();
 
+			var itemModel = this.getView().byId("Table").getModel();
+			var oTable = this.getView().byId("Table");
+			var indices = oTable.getSelectedIndices();
+			if (indices.length === 0) {
+				MessageToast.show("Select atleast one row");
+				return;
+			}			
+			indices.sort(function (a, b) {
+				return b - a;
+			});
+			for (var i = 0; i < indices.length; i++) {
+				itemModel.getData().Data.splice(indices[i], 1);				
+			}
+			itemModel.refresh();
+			
 			this.getView().byId("Ttitle").setText("Cost Association (" + itemModel.getData().Data.length + ")");
-			conditionTable.removeSelectionInterval(length, length);
+			oTable.removeSelectionInterval(length, length);
 		},
+		
+		
 		onAddRows: function (oEvent) {
 			this.addRowsDialog = sap.ui.xmlfragment("com.ingles.retail_pricing.cost_association.fragments.AddRows", this);
 
@@ -940,7 +957,7 @@ sap.ui.define([
 
 			oEvent.getSource().getParent().getParent().getBinding("items").filter(aFilters).sort(aSorters);
 		},
-		onReset: function (oEvent) {
+		onApplyMassUpdate: function (oEvent) {
 			this.bGrouped = false;
 			this.bDescending = false;
 			this.sSearchQuery = 0;
