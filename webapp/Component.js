@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/ingles/retail_pricing/cost_association/model/models"
-], function (UIComponent, Device, models) {
+	"com/ingles/retail_pricing/cost_association/model/models",
+	"sap/ui/model/json/JSONModel"	
+], function (UIComponent, Device, models, JSONModel) {
 	"use strict";
 
 	return UIComponent.extend("com.ingles.retail_pricing.cost_association.Component", {
@@ -22,7 +23,14 @@ sap.ui.define([
 
 			// enable routing
 			this.getRouter().initialize();
-			this.setModel(models.oViewModel(),"addrow");
+			this.setModel(models.oViewModel(), "addrow");
+
+			var appControl = {
+				Currency: "USD",
+				caseCost: 0.00,
+				casePack: 0
+			};
+			this.setModel(new JSONModel(appControl), "appControl");
 
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
@@ -31,6 +39,6 @@ sap.ui.define([
 
 			sap.ui.core.UIComponent.prototype.destroy.apply(this, arguments);
 
-		}		
+		}
 	});
 });

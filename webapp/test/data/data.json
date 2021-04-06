@@ -13,12 +13,13 @@
 		"Multiplier": "5",
 		"Vendor_item": "00015168",
 		"Vendor_desc": "FLAGG, INC. -BOAR'S HD",
+		"Currency": "USD",
 		"UPC": "4242115168",
 		"Allowance": "0.00",
 		"RetailPrice": "9.99",
 		"effcost": "4.39"
-		
-	},{
+
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005900",
 		"Vendor": "1011",
@@ -32,11 +33,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00415163",
 		"Vendor_desc": "FLAGG, INC. -BOAR'S HD",
+		"Currency": "USD",
 		"UPC": "4242115163",
 		"Allowance": "0.36",
 		"RetailPrice": "7.99",
 		"effcost": "3.59"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005793",
 		"Vendor": "1011",
@@ -50,11 +52,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00415169",
 		"Vendor_desc": "FLAGG, INC. -BOAR'S HD",
+		"Currency": "USD",
 		"UPC": "4242115169",
 		"Allowance": "0.86",
 		"RetailPrice": "7.99",
 		"effcost": "3.79"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005761",
 		"Vendor": "1011",
@@ -68,11 +71,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00050078",
 		"Vendor_desc": "FLAGG, INC. -BOAR'S HD",
+		"Currency": "USD",
 		"UPC": "4242150078",
 		"Allowance": "0.00",
 		"RetailPrice": "5.99",
 		"effcost": "2.97"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005928",
 		"Vendor": "1011",
@@ -86,11 +90,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00016206",
 		"Vendor_desc": "FLAGG, INC. -BOAR'S HD",
+		"Currency": "USD",
 		"UPC": "4242116206",
 		"Allowance": "0.00",
 		"RetailPrice": "5.99",
 		"effcost": "2.86"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005925",
 		"Vendor": "1011",
@@ -104,11 +109,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00016208",
 		"Vendor_desc": "FLAGG, INC. -BOAR'S HD",
+		"Currency": "USD",
 		"UPC": "4242116208",
 		"Allowance": "0.00",
 		"RetailPrice": "5.99",
 		"effcost": "2.86"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005643",
 		"Vendor": "1011",
@@ -122,12 +128,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00016214",
 		"Vendor_desc": "FLAGG, INC. -BOAR'S HD",
+		"Currency": "USD",
 		"UPC": "4242116214",
 		"Allowance": "0.00",
 		"RetailPrice": "4.99",
 		"effcost": "2.99"
-	},
-	{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005799",
 		"Vendor": "1022",
@@ -141,11 +147,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00015168",
 		"Vendor_desc": "BROWN'S DELI PROVISIONS, INC",
+		"Currency": "USD",
 		"UPC": "4242115168",
 		"Allowance": "0.00",
 		"RetailPrice": "9.99",
 		"effcost": "4.39"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005900",
 		"Vendor": "1022",
@@ -159,11 +166,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00415163",
 		"Vendor_desc": "BROWN'S DELI PROVISIONS, INC",
+		"Currency": "USD",
 		"UPC": "4242115163",
 		"Allowance": "0.00",
 		"RetailPrice": "7.99",
 		"effcost": "3.59"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005793",
 		"Vendor": "1022",
@@ -177,11 +185,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00415169",
 		"Vendor_desc": "BROWN'S DELI PROVISIONS, INC",
+		"Currency": "USD",
 		"UPC": "4242115169",
 		"Allowance": "0.00",
 		"RetailPrice": "7.99",
 		"effcost": "3.79"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005761",
 		"Vendor": "1022",
@@ -195,11 +204,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00050078",
 		"Vendor_desc": "BROWN'S DELI PROVISIONS, INC",
+		"Currency": "USD",
 		"UPC": "4242150078",
 		"Allowance": "0.00",
 		"RetailPrice": "5.99",
 		"effcost": "2.97"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005928",
 		"Vendor": "1022",
@@ -213,11 +223,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00016206",
 		"Vendor_desc": "BROWN'S DELI PROVISIONS, INC",
+		"Currency": "USD",
 		"UPC": "4242116206",
 		"Allowance": "0.00",
 		"RetailPrice": "5.99",
 		"effcost": "2.86"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005925",
 		"Vendor": "1022",
@@ -231,11 +242,12 @@
 		"Multiplier": "5",
 		"Vendor_item": "00016208",
 		"Vendor_desc": "BROWN'S DELI PROVISIONS, INC",
+		"Currency": "USD",
 		"UPC": "4242116208",
 		"Allowance": "0.00",
 		"RetailPrice": "5.99",
 		"effcost": "2.86"
-	},{
+	}, {
 		"LocationCode": "1005",
 		"Material": "10005643",
 		"Vendor": "1022",
@@ -249,6 +261,7 @@
 		"Multiplier": "5",
 		"Vendor_item": "00016214",
 		"Vendor_desc": "BROWN'S DELI PROVISIONS, INC",
+		"Currency": "USD",
 		"UPC": "4242116214",
 		"Allowance": "0.00",
 		"RetailPrice": "4.99",

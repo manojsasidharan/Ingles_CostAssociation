@@ -49,10 +49,19 @@
 					<Label text="Cost"/>
 				</table:multiLabels>
 				<table:template>
-					<HBox>
+<!--					<HBox>
 						<Input value="{Price}" width="4rem" editable="false" textAlign="Right" change="selectline"/>
 						<Button icon="sap-icon://reset" class="size1 sapUiTinyMarginBegin" press="onreset"/>
-					</HBox>
+					</HBox>-->
+					<Input value="{
+							parts: [
+								{path: 'Price'},
+								{path: 'Currency'}
+							],
+							type: 'sap.ui.model.type.Currency',
+							formatOptions: {showMeasure: false}
+						}"
+						width="4rem" editable="false" textAlign="Right" change="selectline"/>
 				</table:template>
 			</table:Column>
 			<table:Column name="valid_from" width="10rem" tooltip="Valid From" hAlign="Center">
@@ -101,9 +110,9 @@
 					<Text text="{ path : 'Vendor_item',  type : 'sap.ui.model.odata.type.String',  constraints: { isDigitSequence : true,  maxLength : 8  }}" wrapping="false"/>
 				</table:template>
 			</table:Column>
-			<table:Column name="Effective" width="5rem" tooltip="Effective Cost" hAlign="Center" >
+			<table:Column name="Effective" width="5rem" tooltip="Current Cost" hAlign="Center" >
 				<!--<table:multiLabels>-->
-				<Label text="Effective Cost" design="Bold" wrapping="true"/>
+				<Label text="Current Cost" design="Bold" wrapping="true"/>
 				<!--	<Label text="Cost"/>-->
 				<!--</table:multiLabels>-->
 				<table:template>

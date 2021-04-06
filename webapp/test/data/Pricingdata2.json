@@ -14,10 +14,11 @@
 		"Vendor_item": "00340009",
 		"Allowance": "0.00",
 		"Vendor_desc": "Skyland Distributing",
+		"Currency": "USD",
 		"UPC": "6-82430-40009",
 		"RetailPrice": "6.55",
 		"effcost": "21"
-		
+
 	}, {
 		"LocationCode": "1710",
 		"Material": "10114996",
@@ -33,12 +34,12 @@
 		"Vendor_item": "00320025",
 		"Allowance": "0.00",
 		"Vendor_desc": "Skyland Distributing",
+		"Currency": "USD",
 		"UPC": "6-82430-20025",
 		"RetailPrice": "6.55",
 		"effcost": "21"
-		
-	}
-	],
+
+	}],
 	"items": [],
 	"uploadState": "Complete",
 	"markers": [{

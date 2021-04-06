@@ -14,10 +14,11 @@
 		"Vendor_item": "00200769",
 		"Allowance": "1.80",
 		"Vendor_desc": "Budweiser of Asheville",
+		"Currency": "USD",
 		"UPC": "18200-00769",
 		"RetailPrice": "11.27",
 		"effcost": "20.53"
-		
+
 	}, {
 		"LocationCode": "1710",
 		"Material": "10007926",
@@ -33,10 +34,11 @@
 		"Vendor_item": "00200771",
 		"Allowance": "1.80",
 		"Vendor_desc": "Budweiser of Asheville",
+		"Currency": "USD",
 		"UPC": "18200-00771",
 		"RetailPrice": "11.27",
 		"effcost": "20.53"
-		
+
 	}, {
 		"LocationCode": "1710",
 		"Material": "10007938",
@@ -52,6 +54,7 @@
 		"Vendor_item": "00207986",
 		"Allowance": "1.80",
 		"Vendor_desc": "Budweiser of Asheville",
+		"Currency": "USD",
 		"UPC": "18200-07986",
 		"RetailPrice": "11.27",
 		"effcost": "20.53"
@@ -70,11 +73,11 @@
 		"Vendor_item": "00215997",
 		"Allowance": "1.80",
 		"Vendor_desc": "Budweiser of Asheville",
+		"Currency": "USD",
 		"UPC": "18200-15997",
 		"RetailPrice": "11.27",
 		"effcost": "20.53"
-	}
-	],
+	}],
 	"items": [],
 	"uploadState": "Complete",
 	"markers": [{

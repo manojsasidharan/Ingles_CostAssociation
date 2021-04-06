@@ -10,7 +10,7 @@
 				</f:heading>
 				<f:actions>
 					<ToolbarSpacer/>
-				<!--	<Button id="iclone" visible="false" text="Clone" icon="sap-icon://copy" type="Emphasized" press="onCopyRows"/>-->
+					<!--	<Button id="iclone" visible="false" text="Clone" icon="sap-icon://copy" type="Emphasized" press="onCopyRows"/>-->
 					<Button id="isave" visible="false" text="Save" type="Accept" press="onsave"/>
 				</f:actions>
 			</f:DynamicPageTitle>
@@ -19,7 +19,7 @@
 		<f:header>
 			<f:DynamicPageHeader pinnable="true">
 				<f:content>
-						<fb:FilterBar id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="true" >
+					<fb:FilterBar id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="true">
 						<fb:filterGroupItems>
 							<fb:FilterGroupItem groupName="G2" name="A" label="Price Family" visibleInFilterBar="true">
 								<fb:control>
@@ -30,24 +30,24 @@
 									</Select>
 								</fb:control>
 							</fb:FilterGroupItem>
-					<fb:FilterGroupItem groupName="G2" name="K" label="Price Strategy" visibleInFilterBar="true" >
-						<fb:control>
-							<Select id="strategy" forceSelection="false" >
-								<core:Item key="0" text=""/>
-								<core:Item key="207" text="207 GA-I-Market"/>
-								<core:Item key="001" text="001 Ingles"/>
-								<core:Item key="002" text="002 Sav-Mor"/>
-								<core:Item key="003" text="003 I-Markets"/>
-								<core:Item key="201" text="201 AL-Ingles"/>
-								<core:Item key="202" text="202 AL-Sav-Mor"/>
-								<core:Item key="203" text="203 AL-I-Market"/>
-								<core:Item key="204" text="204 GA-Ingles"/>
-								<core:Item key="205" text="205 GA-Sav-Mor"/>
-								<core:Item key="206" text="206 GA-I-Market"/>
-								<core:Item key="213" text="213 TN- Ingles"/>
-							</Select>
-						</fb:control>
-					</fb:FilterGroupItem>							
+							<fb:FilterGroupItem groupName="G2" name="K" label="Price Strategy" visibleInFilterBar="true">
+								<fb:control>
+									<Select id="strategy" forceSelection="false">
+										<core:Item key="0" text=""/>
+										<core:Item key="207" text="207 GA-I-Market"/>
+										<core:Item key="001" text="001 Ingles"/>
+										<core:Item key="002" text="002 Sav-Mor"/>
+										<core:Item key="003" text="003 I-Markets"/>
+										<core:Item key="201" text="201 AL-Ingles"/>
+										<core:Item key="202" text="202 AL-Sav-Mor"/>
+										<core:Item key="203" text="203 AL-I-Market"/>
+										<core:Item key="204" text="204 GA-Ingles"/>
+										<core:Item key="205" text="205 GA-Sav-Mor"/>
+										<core:Item key="206" text="206 GA-I-Market"/>
+										<core:Item key="213" text="213 TN- Ingles"/>
+									</Select>
+								</fb:control>
+							</fb:FilterGroupItem>
 							<fb:FilterGroupItem groupName="G2" name="C" label="Show No Link" visibleInFilterBar="true">
 								<fb:control>
 									<Switch state="true">
@@ -82,10 +82,10 @@
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem groupName="G2" name="N" label="Date From" visibleInFilterBar="true">
 								<fb:control>
-									<DatePicker id="date" value="02/17/2021" valueFormat="MM/dd/yyyy"></DatePicker>
+									<DatePicker id="date" valueFormat="MM/dd/yyyy"></DatePicker>
 								</fb:control>
 							</fb:FilterGroupItem>
-<!--							<fb:FilterGroupItem groupName="G2" name="O" label="Date To" visibleInFilterBar="true">
+							<!--							<fb:FilterGroupItem groupName="G2" name="O" label="Date To" visibleInFilterBar="true">
 								<fb:control>
 									<DatePicker value="12/31/9999" valueFormat="MM/dd/yyyy" width="120px"/>
 								</fb:control>
@@ -109,7 +109,8 @@
 								<fm:formElements>
 									<fm:FormElement label="Case Cost">
 										<fm:fields>
-											<Input id="case" liveChange="oncasecost" showValueHelp="false" value="1" width="100px" textAlign="Right"/>
+											<Input id="case" liveChange="oncasecost" showValueHelp="false" width="100px" textAlign="Right"
+												value="{ parts: [ {path: 'appControl>/caseCost'}, {path: 'appControl>/Currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"/>
 										</fm:fields>
 									</fm:FormElement>
 								</fm:formElements>
@@ -118,7 +119,7 @@
 								<fm:formElements>
 									<fm:FormElement label="Case Pack">
 										<fm:fields>
-											<Input id="casepack" editable="true" value="1" showValueHelp="false" liveChange="oncasecost" width="100px" textAlign="Right"/>
+											<Input id="casepack" editable="true" value="{appControl>/casePack}" showValueHelp="false" liveChange="oncasecost" width="100px" textAlign="Right"/>
 										</fm:fields>
 									</fm:FormElement>
 								</fm:formElements>
@@ -127,7 +128,7 @@
 								<fm:formElements>
 									<fm:FormElement label="Unit Cost">
 										<fm:fields>
-											<Input id="unitCost" editable="false" value="1" width="100px" textAlign="Right"/>
+											<Input id="unitCost" editable="false" width="100px" textAlign="Right"/>
 										</fm:fields>
 									</fm:FormElement>
 								</fm:formElements>
@@ -139,7 +140,7 @@
 		</f:header>
 		<!-- DynamicPage Content -->
 		<f:content>
-			<core:Fragment fragmentName="com.ingles.retail_pricing.cost_association.fragments.table" type="XML" />
+			<core:Fragment fragmentName="com.ingles.retail_pricing.cost_association.fragments.table" type="XML"/>
 		</f:content>
 		<!-- DynamicPage Footer -->
 		<f:footer>

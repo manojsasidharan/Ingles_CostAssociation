@@ -58,6 +58,25 @@ sap.ui.define([
 				}
 			});
 
+			var today = this.getToday();
+			this.getView().byId("date").setValue(today);
+
+		},
+
+		getToday: function () {
+			var d = new Date(),
+				month = "" + (d.getMonth() + 1),
+				day = "" + d.getDate(),
+				year = d.getFullYear();
+
+			if (month.length < 2) {
+				month = "0" + month;
+			}
+			if (day.length < 2) {
+				day = "0" + day;
+			}
+
+			return [month, day, year].join("/");
 		},
 		onunit: function (oEvent) {
 			var value = this.getView().byId("case").getValue();
@@ -76,11 +95,11 @@ sap.ui.define([
 			}
 			var number;
 			if (select === "001") {
-				number =  ( parseFloat(value, 2) ) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
+				number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
 			} else if (select === "002") {
-				number = ( parseFloat(value, 2) ) / pack;  //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
+				number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
 			} else {
-				number = ( parseFloat(value, 2) ) / pack;  //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
+				number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
 			}
 			this.getView().byId("unitCost").setValue(number.toFixed(2));
 			var oTable = this.getView().byId("Table");
@@ -108,13 +127,14 @@ sap.ui.define([
 			var retailprice = model.getProperty("/Data/" + row + "/RetailPrice");
 			var allowance = model.getProperty("/Data/" + row + "/Allowance");
 			var cost = model.getProperty("/Data/" + row + "/Price") / model.getProperty("/Data/" + row + "/Last_Cost");
-			allowance = (isNaN(allowance))? 0 : allowance;
+			allowance = (isNaN(allowance)) ? 0 : allowance;
 			var calculatedallow, finalallow;
-/*			var casecost = this.getView().byId("case").getValue();
-			var casepack = this.getView().byId("casepack").getValue();*/
+			/*			var casecost = this.getView().byId("case").getValue();
+						var casepack = this.getView().byId("casepack").getValue();*/
 
 			var calculated = ((parseFloat(retailprice, 2) - parseFloat(cost, 2)) / parseFloat(retailprice, 2)) * 100;
-			calculatedallow = ( (parseFloat(retailprice, 2) - parseFloat(cost, 2) - parseFloat(allowance, 2) ) / parseFloat(retailprice, 2)) *	100;
+			calculatedallow = ((parseFloat(retailprice, 2) - parseFloat(cost, 2) + parseFloat(allowance, 2)) / parseFloat(retailprice, 2)) *
+				100;
 
 			var finalcal = isNaN(calculated) ? 0 : calculated.toFixed(2);
 			finalallow = isNaN(calculatedallow) ? 0 : calculatedallow.toFixed(2);
@@ -133,14 +153,16 @@ sap.ui.define([
 			var pack = this.getView().byId("casepack").getValue();
 			// var allow = this.getView().byId("allow").getValue();
 			var number;
-			if (select === "001") {
-				number = ( parseFloat(value, 2)) / parseFloat(pack,2);//( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
-			} else if (select === "002") {
-				number = ( parseFloat(value, 2)) / parseFloat(pack,2);//( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
-			} else {
-				number = ( parseFloat(value, 2)) / parseFloat(pack,2);//( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
+			if (pack > 0) {
+				if (select === "001") {
+					number = (parseFloat(value, 2)) / parseFloat(pack, 2); //( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
+				} else if (select === "002") {
+					number = (parseFloat(value, 2)) / parseFloat(pack, 2); //( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
+				} else {
+					number = (parseFloat(value, 2)) / parseFloat(pack, 2); //( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
+				}
+				this.getView().byId("unitCost").setValue(number.toFixed(2));
 			}
-			this.getView().byId("unitCost").setValue(number.toFixed(2));
 		},
 		onSearch: function (oEvent) {
 			//	debugger;
@@ -154,7 +176,7 @@ sap.ui.define([
 			var afilters = [];
 			var tokens = this.getView().byId("multiInput").getTokens();
 
-			if ((select === "0" && strategy==="0") & primary ) {
+			if ((select === "0" && strategy === "0") & primary) {
 				MessageToast.show("Please select Price Family, Price Strategy or Vendor");
 				return;
 			}
@@ -253,10 +275,10 @@ sap.ui.define([
 				oCell.setProperty("editable", true);
 				// oCell = oRows[i].getCells()[4];
 				// oCell.setProperty("editable", false);
-				oCell = oRows[i].getCells()[3];
-				oCell.getItems()[0].setProperty("editable", true);
-				oCell = oRows[i].getCells()[4];
-				oCell.setProperty("editable", true);
+				// oCell = oRows[i].getCells()[3];
+				// oCell.getItems()[0].setProperty("editable", true);
+				// oCell = oRows[i].getCells()[4];
+				// oCell.setProperty("editable", true);
 			}
 			this.onEditAction();
 			var that = this;
@@ -275,7 +297,7 @@ sap.ui.define([
 			// cost = this.getView().byId("unitCost").getValue();			
 			// var retailwithoutallowance = parseFloat(casecost, 2) / parseFloat(casepack,2);
 			// var allowance = this.getView().byId("allow").getValue();
-			var  allowance;
+			var allowance;
 			for (var i = 0; i < oRows.length; i++) {
 
 				cost = model.getProperty("/Data/" + i + "/Price") / model.getProperty("/Data/" + i + "/Last_Cost");
@@ -283,7 +305,8 @@ sap.ui.define([
 				retailprice = model.getProperty("/Data/" + i + "/RetailPrice");
 
 				calculated = ((parseFloat(retailprice, 2) - parseFloat(cost, 2)) / parseFloat(retailprice, 2)) * 100;
-				calculatedallow = ( (parseFloat(retailprice, 2) - parseFloat(cost, 2) - parseFloat(allowance, 2)) / parseFloat(retailprice, 2)) *	100;
+				calculatedallow = ((parseFloat(retailprice, 2) - parseFloat(cost, 2) + parseFloat(allowance, 2)) / parseFloat(retailprice, 2)) *
+					100;
 				finalcal = isNaN(calculated) ? 0 : calculated.toFixed(2);
 				finalallow = isNaN(calculatedallow) ? 0 : calculatedallow.toFixed(2);
 				var check = model.getProperty("/Data/" + i + "/Material");
@@ -328,20 +351,19 @@ sap.ui.define([
 			if (indices.length === 0) {
 				MessageToast.show("Select atleast one row");
 				return;
-			}			
+			}
 			indices.sort(function (a, b) {
 				return b - a;
 			});
 			for (var i = 0; i < indices.length; i++) {
-				itemModel.getData().Data.splice(indices[i], 1);				
+				itemModel.getData().Data.splice(indices[i], 1);
 			}
 			itemModel.refresh();
-			
+
 			this.getView().byId("Ttitle").setText("Cost Association (" + itemModel.getData().Data.length + ")");
 			oTable.removeSelectionInterval(length, length);
 		},
-		
-		
+
 		onAddRows: function (oEvent) {
 			this.addRowsDialog = sap.ui.xmlfragment("com.ingles.retail_pricing.cost_association.fragments.AddRows", this);
 
@@ -522,7 +544,7 @@ sap.ui.define([
 			var tokens = this.getView().byId("multiInput").getTokens();
 			var count = this.getView().byId("Table").getBinding().iLength;
 			if (primary) {
-				if (select === "001"  || strategy === "207") {
+				if (select === "001" || strategy === "207") {
 					var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata.json");
 					this.getView().byId("Ttitle").setText("Cost Association (" + 4 + ")");
 				} else {
@@ -592,13 +614,13 @@ sap.ui.define([
 				this.getView().byId("multiInput").setEnabled(true);
 			}
 
-			var select = oEvent.getSource().getSelectedKey();
+			/*			var select = oEvent.getSource().getSelectedKey();
 
-			if (select === "001") {
-				this.getView().byId("casepack").setValue(2);
-			} else if (select === "002") {
-				this.getView().byId("casepack").setValue(4);
-			}
+						if (select === "001") {
+							this.getView().byId("casepack").setValue(2);
+						} else if (select === "002") {
+							this.getView().byId("casepack").setValue(4);
+						}*/
 
 		},
 		ondel: function (oEvent) {
@@ -887,14 +909,13 @@ sap.ui.define([
 		selectline: function (oEvent) {
 			var table = this.getView().byId("Table"),
 				oRow = oEvent.getSource().getParent().getParent().getBindingContext().getPath().slice(6);
-					this.calculate(oRow, table);
+			this.calculate(oRow, table);
 			table.addSelectionInterval(oRow, oRow);
 		},
 		onreset: function (oEvent) {
 			var primary = this.getView().byId("slName").getEnabled();
 			var select = this.getView().byId("slName").getSelectedKey();
 			var strategy = this.getView().byId("strategy").getSelectedKey();
-
 
 			if (primary) {
 				if (select === "001" || strategy === "207") {
@@ -962,6 +983,15 @@ sap.ui.define([
 			this.bDescending = false;
 			this.sSearchQuery = 0;
 
+			if (this.getView().byId("case").getValue() === "") {
+				MessageToast.show("Enter valid Case Cost");
+				return;
+			}
+			if (this.getView().byId("casepack").getValue() === "") {
+				MessageToast.show("Enter valid Case Pack");
+				return;
+			}
+
 			//this.fnApplyFiltersAndOrdering(oEvent);
 			var that = this;
 			setTimeout(function () {
@@ -996,8 +1026,8 @@ sap.ui.define([
 		},
 		onsave: function (oEvent) {
 			sap.ui.getCore().getMessageManager().removeAllMessages();
-			this.addMessageToTarget("", "", "Cost Association 45778 created successfully!!", "Success",
-				"UPC: 18200-00769 Material: 106216 Vendor: 407807 Successfully posted",
+			this.addMessageToTarget("", "", "Cost Association update successfully", "Success",
+				"",
 				"S", "");
 
 			//this.addMessageToTarget("", "", "Please enter valid Price", "Error", "Please check the Price at Row 2", "E", "");
