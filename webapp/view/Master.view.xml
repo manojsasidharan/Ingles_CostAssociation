@@ -1,7 +1,7 @@
 <mvc:View controllerName="com.ingles.retail_pricing.cost_association.controller.Master" height="100%" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar"
 	xmlns:fm="sap.ui.layout.form" xmlns:vm="sap.ui.comp.variants">
-	<f:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}">
+	<f:DynamicPage id="dynamicPageId" headerExpanded="{appControl>/headerExpanded}">
 		<!-- DynamicPage Title -->
 		<f:title>
 			<f:DynamicPageTitle>
@@ -11,29 +11,29 @@
 				<f:actions>
 					<ToolbarSpacer/>
 					<!--	<Button id="iclone" visible="false" text="Clone" icon="sap-icon://copy" type="Emphasized" press="onCopyRows"/>-->
-					<Button id="isave" visible="false" text="Save" type="Accept" press="onsave"/>
+					<Button id="isave" visible="{appControl>/Save}" text="Save" type="Accept" press="onsave"/>
 				</f:actions>
 			</f:DynamicPageTitle>
 		</f:title>
 		<!-- DynamicPage Header -->
 		<f:header>
-			<f:DynamicPageHeader pinnable="true">
+			<f:DynamicPageHeader pinnable="false">
 				<f:content>
 					<fb:FilterBar id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="true">
 						<fb:filterGroupItems>
 							<fb:FilterGroupItem groupName="G2" name="A" label="Price Family" visibleInFilterBar="true">
 								<fb:control>
-									<Select id="slName" forceSelection="true" change="onSelectChange" selectedKey="0">
-										<core:Item key="0" text=""/>
-										<core:Item key="001" text="4-91000-01134 BUD LONGNECK"/>
-										<core:Item key="002" text="4-91000-78130 VOSS WATER"/>
+									<Select id="Family" forceSelection="true" selectedKey="">
+										<core:Item key="" text=""/>
+										<core:Item key="1134" text="4-91000-01134 BUD LONGNECK"/>
+										<core:Item key="78130" text="4-91000-78130 VOSS WATER"/>
 									</Select>
 								</fb:control>
 							</fb:FilterGroupItem>
 							<fb:FilterGroupItem groupName="G2" name="K" label="Price Strategy" visibleInFilterBar="true">
 								<fb:control>
-									<Select id="strategy" forceSelection="false">
-										<core:Item key="0" text=""/>
+									<Select id="Strategy" forceSelection="false">
+										<core:Item key="" text=""/>
 										<core:Item key="207" text="207 GA-I-Market"/>
 										<core:Item key="001" text="001 Ingles"/>
 										<core:Item key="002" text="002 Sav-Mor"/>
@@ -48,15 +48,15 @@
 									</Select>
 								</fb:control>
 							</fb:FilterGroupItem>
-							<fb:FilterGroupItem groupName="G2" name="C" label="Show No Link" visibleInFilterBar="true">
-								<fb:control>
-									<Switch state="true">
-										<layoutData>
-											<FlexItemData growFactor="1"/>
-										</layoutData>
-									</Switch>
-								</fb:control>
-							</fb:FilterGroupItem>
+							<!--<fb:FilterGroupItem groupName="G2" name="C" label="Show No Link" visibleInFilterBar="true">-->
+							<!--	<fb:control>-->
+							<!--		<Switch state="true">-->
+							<!--			<layoutData>-->
+							<!--				<FlexItemData growFactor="1"/>-->
+							<!--			</layoutData>-->
+							<!--		</Switch>-->
+							<!--	</fb:control>-->
+							<!--</fb:FilterGroupItem>-->
 							<fb:FilterGroupItem groupName="G2" name="B" label="Vendor" visibleInFilterBar="true">
 								<fb:control>
 									<MultiInput id="multiInput" valueHelpRequest=".onValueHelpRequested" showSuggestion="true" tokenUpdate="ondel"
@@ -92,49 +92,6 @@
 							</fb:FilterGroupItem>-->
 						</fb:filterGroupItems>
 					</fb:FilterBar>
-					<fm:Form id="FormDisplayColumn_oneGroup" editable="true">
-						<fm:toolbar>
-							<Toolbar id="TB1">
-								<Title id="Title1" text="Mass Update" level="H2" titleStyle="H4"/>
-								<ToolbarSpacer/>
-								<Button text="Apply" press="onApplyMassUpdate" type="Emphasized" icon="sap-icon://arrow-down"/>
-							</Toolbar>
-						</fm:toolbar>
-						<fm:layout>
-							<fm:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="6" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
-								emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="4" columnsM="4" singleContainerFullSize="false"/>
-						</fm:layout>
-						<fm:formContainers>
-							<fm:FormContainer>
-								<fm:formElements>
-									<fm:FormElement label="Case Cost">
-										<fm:fields>
-											<Input id="case" liveChange="oncasecost" showValueHelp="false" width="100px" textAlign="Right"
-												value="{ parts: [ {path: 'appControl>/caseCost'}, {path: 'appControl>/Currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"/>
-										</fm:fields>
-									</fm:FormElement>
-								</fm:formElements>
-							</fm:FormContainer>
-							<fm:FormContainer >
-								<fm:formElements>
-									<fm:FormElement label="Case Pack">
-										<fm:fields>
-											<Input id="casepack" editable="true" value="{appControl>/casePack}" showValueHelp="false" liveChange="oncasecost" width="100px" textAlign="Right"/>
-										</fm:fields>
-									</fm:FormElement>
-								</fm:formElements>
-							</fm:FormContainer>
-							<fm:FormContainer >
-								<fm:formElements>
-									<fm:FormElement label="Unit Cost">
-										<fm:fields>
-											<Input id="unitCost" editable="false" width="100px" textAlign="Right"/>
-										</fm:fields>
-									</fm:FormElement>
-								</fm:formElements>
-							</fm:FormContainer>
-						</fm:formContainers>
-					</fm:Form>
 				</f:content>
 			</f:DynamicPageHeader>
 		</f:header>

@@ -27,6 +27,8 @@ sap.ui.define([
 
 			var appControl = {
 				Currency: "USD",
+				headerExpanded: true,
+				Save: false,
 				caseCost: 0.00,
 				casePack: 0
 			};

@@ -35,8 +35,8 @@ sap.ui.define([
 			this._oMultiInputWithSuggestions = this.getView().byId("multiInput");
 			this._oMultiInput.addValidator(this._onMultiInputValidate);
 			this._oMultiInput.setTokens(this._getDefaultTokens());
-			this.getView().byId("slName").setEnabled(false);
-			this.getView().byId("strategy").setEnabled(false);
+			// this.getView().byId("slName").setEnabled(false);
+			// this.getView().byId("strategy").setEnabled(false);
 			var scPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/columnsModel.json");
 			this.oColModel = new JSONModel(scPath);
 			var sPPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/products.json");
@@ -78,73 +78,107 @@ sap.ui.define([
 
 			return [month, day, year].join("/");
 		},
-		onunit: function (oEvent) {
+		onapply: function (oEvent) {
 			var value = this.getView().byId("case").getValue();
-			var select = this.getView().byId("slName").getSelectedKey();
+			// var select = this.getView().byId("slName").getSelectedKey();
 			var datevalue = this.getView().byId("date").getDateValue();
-			var pack = this.getView().byId("casepack").getValue();
+			// var pack = this.getView().byId("casepack").getValue();
 			var date = new Date(datevalue);
 			// var allow = this.getView().byId("allow").getValue();
 			var datef = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() :
 				('0' + date.getDate())) + '/' + date.getFullYear();
-			var selected = this.getView().byId("Table").getSelectedIndices();
+				
+			this.calculate(value, datef);
+			this.getOwnerComponent().getModel("appControl").setProperty("/Save", true);
+			// var selected = this.getView().byId("Table").getSelectedIndices();
 
-			if (selected.length === 0) {
-				MessageToast.show("Select atleast one row");
-				return;
-			}
-			var number;
-			if (select === "001") {
-				number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
-			} else if (select === "002") {
-				number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
-			} else {
-				number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
-			}
-			this.getView().byId("unitCost").setValue(number.toFixed(2));
-			var oTable = this.getView().byId("Table");
-			var model = this.getView().byId("Table").getModel();
+			// if (selected.length === 0) {
+			// 	MessageToast.show("Select atleast one row");
+			// 	return;
+			// }
+			// var number;
+			// if (select === "001") {
+			// 	number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
+			// } else if (select === "002") {
+			// 	number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
+			// } else {
+			// 	number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
+			// }
+			// this.getView().byId("unitCost").setValue(number.toFixed(2));
 			// var allowance = this.getView().byId("allow").getValue();
 			//var oRows = oTable.getRows();
-			for (var i = 0; i < selected.length; i++) {
-				model.setProperty("/Data/" + selected[i] + "/Price", value);
-				model.setProperty("/Data/" + selected[i] + "/valid_from", datef);
-				// model.setProperty("/Data/" + selected[i] + "/Allowance", allowance);
-				model.setProperty("/Data/" + selected[i] + "/Last_Cost", pack);
-				//var oCell = oRows[selected[i]].getCells()[3];
-				//oCell.getItems()[0].setValue(value);
-				//oCell = oRows[selected[i]].getCells()[4];
-				//oCell.setDateValue(datevalue);
-				this.calculate(selected[i], oTable);
-			}
+			// for (var i = 0; i < selected.length; i++) {
+			// 	model.setProperty("/Data/" + selected[i] + "/Price", value);
+			// 	model.setProperty("/Data/" + selected[i] + "/valid_from", datef);
+			// 	// model.setProperty("/Data/" + selected[i] + "/Allowance", allowance);
+			// 	model.setProperty("/Data/" + selected[i] + "/Last_Cost", pack);
+			// 	//var oCell = oRows[selected[i]].getCells()[3];
+			// 	//oCell.getItems()[0].setValue(value);
+			// 	//oCell = oRows[selected[i]].getCells()[4];
+			// 	//oCell.setDateValue(datevalue);
+			// 	this.calculate(selected[i], oTable);
+			// }
 
 		},
 
-		calculate: function (row, oTable) {
+		calculate: function (NewCost, NewValidFrom) {
 
-			// var cost = this.getView().byId("unitCost").getValue();
-			var model = this.getView().byId("Table").getModel();
-			var retailprice = model.getProperty("/Data/" + row + "/RetailPrice");
-			var allowance = model.getProperty("/Data/" + row + "/Allowance");
-			var cost = model.getProperty("/Data/" + row + "/Price") / model.getProperty("/Data/" + row + "/Last_Cost");
-			allowance = (isNaN(allowance)) ? 0 : allowance;
-			var calculatedallow, finalallow;
-			/*			var casecost = this.getView().byId("case").getValue();
-						var casepack = this.getView().byId("casepack").getValue();*/
+			// // var cost = this.getView().byId("unitCost").getValue();
+			// var model = this.getView().byId("Table").getModel();
+			// var retailprice = model.getProperty("/Data/" + row + "/RetailPrice");
+			// var allowance = model.getProperty("/Data/" + row + "/Allowance");
+			// var cost = model.getProperty("/Data/" + row + "/Price") / model.getProperty("/Data/" + row + "/Last_Cost");
+			// allowance = (isNaN(allowance)) ? 0 : allowance;
+			// var calculatedallow, finalallow;
+			// /*			var casecost = this.getView().byId("case").getValue();
+			// 			var casepack = this.getView().byId("casepack").getValue();*/
 
-			var calculated = ((parseFloat(retailprice, 2) - parseFloat(cost, 2)) / parseFloat(retailprice, 2)) * 100;
-			calculatedallow = ((parseFloat(retailprice, 2) - parseFloat(cost, 2) + parseFloat(allowance, 2)) / parseFloat(retailprice, 2)) *
-				100;
+			// var calculated = ((parseFloat(retailprice, 2) - parseFloat(cost, 2)) / parseFloat(retailprice, 2)) * 100;
+			// calculatedallow = ((parseFloat(retailprice, 2) - parseFloat(cost, 2) + parseFloat(allowance, 2)) / parseFloat(retailprice, 2)) *
+			// 	100;
 
-			var finalcal = isNaN(calculated) ? 0 : calculated.toFixed(2);
-			finalallow = isNaN(calculatedallow) ? 0 : calculatedallow.toFixed(2);
-			var check = model.getProperty("/Data/" + row + "/Material");
-			if (check !== "") {
-				model.setProperty("/Data/" + row + "/gm", finalcal);
-				model.setProperty("/Data/" + row + "/allow", finalallow);
-				// oTable.getRows()[row].getCells()[12].setText();
-				// oTable.getRows()[row].getCells()[13].setText(finalallow);
+			// var finalcal = isNaN(calculated) ? 0 : calculated.toFixed(2);
+			// finalallow = isNaN(calculatedallow) ? 0 : calculatedallow.toFixed(2);
+			// var check = model.getProperty("/Data/" + row + "/Material");
+			// if (check !== "") {
+			// 	model.setProperty("/Data/" + row + "/gm", finalcal);
+			// 	model.setProperty("/Data/" + row + "/allow", finalallow);
+			// 	// oTable.getRows()[row].getCells()[12].setText();
+			// 	// oTable.getRows()[row].getCells()[13].setText(finalallow);
+			// }
+
+			var oTable = this.getView().byId("Table");
+			var model = oTable.getModel();
+			var rowPath = "";
+			var tableData = model.getProperty("/Data");
+			var RetailPrice = 0,
+				CaseCost = 0,
+				CasePack = 1,
+				Allowance = 0,
+				GM = 0,
+				GMallow = 0;
+			for (var i = 0; i < tableData.length; i++) {
+				
+				if (NewCost !== "")
+					tableData[i].New_Cost = NewCost;
+				if (NewValidFrom !== "")
+					tableData[i].valid_from = NewValidFrom;
+					
+				RetailPrice = tableData[i].RetailPrice;	
+				CaseCost =  tableData[i].New_Cost;	
+				CasePack = tableData[i].Case_Pack;	
+				Allowance = tableData[i].Allowance;	
+				
+				GM = ((parseFloat(RetailPrice,2 ) - (parseFloat(CaseCost, 2) / parseFloat(CasePack, 2))) / parseFloat(RetailPrice, 2)) * 100;	
+				tableData[i].gm = isNaN(GM) ? 0 : GM.toFixed(2);
+				
+				GMallow = ((parseFloat(RetailPrice, 2) - (parseFloat(CaseCost, 2) / parseFloat(CasePack, 2)) + parseFloat(Allowance, 2)) / parseFloat(RetailPrice, 2)) * 100;	
+				tableData[i].gmallow = isNaN(GMallow) ? 0 : GMallow.toFixed(2);
+				
+				rowPath = "/Data/" + i;
+				model.setProperty(rowPath, tableData[i]);
 			}
+			model.refresh();
 
 		},
 		oncasecost: function () {
@@ -167,91 +201,150 @@ sap.ui.define([
 		onSearch: function (oEvent) {
 			//	debugger;
 			//this.getView().byId("messagepage").setVisible(false);
-			var primary = this.getView().byId("slName").getEnabled();
-			var select = this.getView().byId("slName").getSelectedKey();
-			var strategy = this.getView().byId("strategy").getSelectedKey();
+			// var primary = this.getView().byId("slName").getEnabled();
+			var family = this.getView().byId("Family").getSelectedKey();
+			var strategy = this.getView().byId("Strategy").getSelectedKey();
+			var vendTokens = this.getView().byId("multiInput").getTokens();
 			var conditionTable = this.getView().byId("Table");
-			// var casecost = this.getView().byId("case").getValue();
-			var count = this.getView().byId("Table").getBinding().iLength;
-			var afilters = [];
-			var tokens = this.getView().byId("multiInput").getTokens();
-
-			if ((select === "0" && strategy === "0") & primary) {
-				MessageToast.show("Please select Price Family, Price Strategy or Vendor");
+			
+			if(family === "" && strategy === "" && vendTokens.length === 0)
+			{
+				MessageToast.show("Please enter Price Family/Strategy/Vendor #");
 				return;
 			}
+			
+			// var casecost = this.getView().byId("case").getValue();
+			// var count = this.getView().byId("Table").getBinding().iLength;
+			// var afilters = [];
+			// var tokens = this.getView().byId("multiInput").getTokens();
+
+			// if ((select === "0" && strategy === "0") & primary) {
+			// 	MessageToast.show("Please select Price Family, Price Strategy or Vendor");
+			// 	return;
+			// }
 			// if(casecost === ""){
 			// 	MessageToast.show("Please enter Case Cost");
 			// 	return;
 			// }
-			if (primary) {
+			// if (primary) {
 
-				if (select === "001" || strategy === "207") {
-					this.getView().byId("Ttitle").setText("Cost Association (" + 4 + ")");
-					var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata.json");
+			// 	if (select === "001" || strategy === "207") {
+			// 		this.getView().byId("Ttitle").setText("Cost Association (" + 4 + ")");
+			// 		var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata.json");
 
-				} else {
-					this.getView().byId("Ttitle").setText("Cost Association (" + 2 + ")");
-					sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata2.json");
+			// 	} else {
+			// 		this.getView().byId("Ttitle").setText("Cost Association (" + 2 + ")");
+			// 		sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata2.json");
 
-				}
+			// 	}
 
-			} else {
-				sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/data.json");
+			// } else {
+			// 	sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/data.json");
 
-				this.getView().byId("Ttitle").setText("Cost Association (" + count + ")");
-			}
+			// 	this.getView().byId("Ttitle").setText("Cost Association (" + count + ")");
+			// }
 
+			var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/CostAssoc.json");
 			var attModel = new JSONModel(sPath);
-			attModel.setDefaultBindingMode("TwoWay");
-			conditionTable.setModel(attModel);
-			conditionTable.bindRows("/Data");
-			attModel.refresh();
-			if (!primary) {
-				for (var i = 0; i < tokens.length; i++) {
-					var oFilter = new Filter("Vendor", FilterOperator.EQ, tokens[i].getKey());
-					afilters.push(oFilter);
+			var dataArray = [];
+			var filteredArray = [];
+			this.getOwnerComponent().getModel("appControl").setProperty("/Save", false);
+			attModel.attachRequestCompleted(function () {
+				dataArray = attModel.getData().Data;
+				for (var i = 0; i < dataArray.length; i++) {
+					if (((family !== "" && dataArray[i].Family === family) || family === "") && ((strategy !== "" && dataArray[i].strategy ===
+							strategy) || strategy === "")) {
+						if (vendTokens.length === 0)
+							filteredArray.push(dataArray[i]);
+						else {
+							for (var j = 0; j < vendTokens.length; j++) {
+								if (dataArray[i].Vendor === vendTokens[j].getKey()) {
+									filteredArray.push(dataArray[i]);
+									break;
+								}
+							}
+						}
+					}
 				}
-				conditionTable.getBinding().filter(afilters);
-				var title = this.getView().byId("Ttitle");
-				conditionTable.getBinding().attachChange(function (oEvent1) {
-					title.setText("Cost Association (" + oEvent1.getSource().iLength + ")");
-				});
-			}
+				this.getView().setModel(new JSONModel({
+					Data: filteredArray
+				}));
+				conditionTable.bindRows("/Data");
+				this.getView().byId("Ttitle").setText("Cost Association (" + filteredArray.length + ")");
+				this.calculate("", "");
 
-			if (primary) {
-				conditionTable.setEnableSelectAll(false);
-				if (select === "001") {
-					conditionTable.addSelectionInterval(0, 3);
-				} else if (select === "002") {
-					conditionTable.addSelectionInterval(0, 1);
-				}
-			} else {
-				conditionTable.setEnableSelectAll(true);
-				conditionTable.removeSelectionInterval(0, 3);
-			}
+			}.bind(this));
+
+			// this.getView().setModel(attModel);
+			// conditionTable.bindRows("/Data");
 			// this.getView().byId("Table").rerender();
-			this.getView().byId("Table").getModel().refresh();
-			this.onfirstdisplay();
+			// var aFilters = [];
+			// if(family !=="" && family !== undefined)
+			// {
+			// 	aFilters.push(new Filter({
+			// 				path: "Family",
+			// 				operator: FilterOperator.Contains,
+			// 				value1: family.toString()
+			// 			}));
+
+			// }
+			// if(strategy !=="" && strategy !== undefined)
+			// {
+			// 	aFilters.push(new Filter({
+			// 				path: "Strategy",
+			// 				operator: FilterOperator.Contains,
+			// 				value1: strategy.toString()
+			// 			}));
+
+			// }			
+			// conditionTable.getBinding().filter(aFilters);
+
+			// attModel.refresh();
+			// if (!primary) {
+			// 	for (var i = 0; i < tokens.length; i++) {
+			// 		var oFilter = new Filter("Vendor", FilterOperator.EQ, tokens[i].getKey());
+			// 		afilters.push(oFilter);
+			// 	}
+			// 	conditionTable.getBinding().filter(afilters);
+			// 	var title = this.getView().byId("Ttitle");
+			// 	conditionTable.getBinding().attachChange(function (oEvent1) {
+			// 		title.setText("Cost Association (" + oEvent1.getSource().iLength + ")");
+			// 	});
+			// }
+
+			// if (primary) {
+			// 	conditionTable.setEnableSelectAll(false);
+			// 	if (select === "001") {
+			// 		conditionTable.addSelectionInterval(0, 3);
+			// 	} else if (select === "002") {
+			// 		conditionTable.addSelectionInterval(0, 1);
+			// 	}
+			// } else {
+			// 	conditionTable.setEnableSelectAll(true);
+			// 	conditionTable.removeSelectionInterval(0, 3);
+			// }
+			// this.getView().byId("Table").rerender();
+			// this.getView().byId("Table").getModel().refresh();
+			// this.onfirstdisplay();
 
 		},
 		getQuery: function (oArgs) {
 
-			var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/data.json");
-			var conditionTable = this.getView().byId("Table");
-			var attModel = new JSONModel(sPath);
-			attModel.setDefaultBindingMode("TwoWay");
-			this.getView().setModel(attModel);
+			// var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/data.json");
+			// var conditionTable = this.getView().byId("Table");
+			// var attModel = new JSONModel(sPath);
+			// attModel.setDefaultBindingMode("TwoWay");
+			// this.getView().setModel(attModel);
 
-			conditionTable.bindRows("/Data");
-			attModel.refresh();
-			this.getView().byId("Table").rerender();
-			this.onfirstdisplay();
-			var that = this;
-			setTimeout(function () {
-				var count = that.getView().byId("Table").getBinding().iLength;
-				that.getView().byId("Ttitle").setText("Cost Association (" + count + ")");
-			}, 1000);
+			// conditionTable.bindRows("/Data");
+			// attModel.refresh();
+			// // this.getView().byId("Table").rerender();
+			// this.onfirstdisplay();
+			// var that = this;
+			// setTimeout(function () {
+			// 	var count = that.getView().byId("Table").getBinding().iLength;
+			// 	that.getView().byId("Ttitle").setText("Cost Association (" + count + ")");
+			// }, 1000);
 
 		},
 		ongroup: function () {
@@ -269,10 +362,10 @@ sap.ui.define([
 				// oCell.setProperty("editable", true);
 				// oCell = oRows[i].getCells()[5];
 				// var oCell.setProperty("editable", true);
-				var oCell = oRows[i].getCells()[0];
-				oCell.setProperty("editable", true);
-				oCell = oRows[i].getCells()[1];
-				oCell.setProperty("editable", true);
+				// var oCell = oRows[i].getCells()[0];
+				// oCell.setProperty("editable", true);
+				// oCell = oRows[i].getCells()[1];
+				// oCell.setProperty("editable", true);
 				// oCell = oRows[i].getCells()[4];
 				// oCell.setProperty("editable", false);
 				// oCell = oRows[i].getCells()[3];
@@ -327,9 +420,9 @@ sap.ui.define([
 
 		},
 		onEditAction: function (oEvent) {
-			this.getView().byId("Tfilter").setVisible(true);
+			// this.getView().byId("Tfilter").setVisible(true);
 			this.getView().byId("Treset").setVisible(true);
-			this.getView().byId("Tcreate").setVisible(true);
+			// this.getView().byId("Tcreate").setVisible(true);
 
 			//this.getView().byId("BCopy").setVisible(true);
 			// this.getView().byId("iclone").setVisible(true);
@@ -485,13 +578,13 @@ sap.ui.define([
 			var select = this.getView().byId("slName").getSelectedKey();
 			var strategy = this.getView().byId("strategy").getSelectedKey();
 			var conditionTable = this.getView().byId("Table");
-			if (primary) {
-				if (select === "001" || strategy === "207") {
-					conditionTable.addSelectionInterval(0, iIndex.length - 1);
-				} else if (select === "002" || strategy === "001") {
-					conditionTable.addSelectionInterval(0, iIndex.length - 1);
-				}
-			}
+			// if (primary) {
+			// 	if (select === "001" || strategy === "207") {
+			// 		conditionTable.addSelectionInterval(0, iIndex.length - 1);
+			// 	} else if (select === "002" || strategy === "001") {
+			// 		conditionTable.addSelectionInterval(0, iIndex.length - 1);
+			// 	}
+			// }
 			var that = this;
 			setTimeout(function () {
 				that.firstcalculate();
@@ -624,21 +717,21 @@ sap.ui.define([
 
 		},
 		ondel: function (oEvent) {
-			var tokens = oEvent.getSource().getTokens();
-			if (tokens.length === 1) {
-				this.getView().byId("slName").setEnabled(true);
-				this.getView().byId("strategy").setEnabled(true);
-			}
+			// var tokens = oEvent.getSource().getTokens();
+			// if (tokens.length === 1) {
+			// 	this.getView().byId("slName").setEnabled(true);
+			// 	this.getView().byId("strategy").setEnabled(true);
+			// }
 		},
 		_getDefaultTokens: function () {
 			//var ValueHelpRangeOperation = compLibrary.valuehelpdialog.ValueHelpRangeOperation;
 			var oToken1 = new Token({
-				key: "1011",
-				text: "1011"
+				key: "626",
+				text: "626"
 			});
 			var oToken2 = new Token({
-				key: "1022",
-				text: "1022"
+				key: "670",
+				text: "670"
 			});
 			// var oToken3 = new Token({
 			// 	key: "214",
@@ -717,20 +810,20 @@ sap.ui.define([
 		},
 		onValueHelpOkPress: function (oEvent) {
 			var aTokens = oEvent.getParameter("tokens");
-			this.getView().byId("casepack").setValue("12");
+			// this.getView().byId("casepack").setValue("12");
 			aTokens.map(function (item) {
 				return item.setText(item.getKey());
 			});
 			this._oMultiInput.setTokens(aTokens);
 			this._oValueHelpDialog.close();
 
-			if (aTokens.length === 0) {
-				this.getView().byId("slName").setEnabled(true);
-				this.getView().byId("strategy").setEnabled(true);
-			} else {
-				this.getView().byId("slName").setEnabled(false);
-				this.getView().byId("strategy").setEnabled(false);
-			}
+			// if (aTokens.length === 0) {
+			// 	this.getView().byId("slName").setEnabled(true);
+			// 	this.getView().byId("strategy").setEnabled(true);
+			// } else {
+			// 	this.getView().byId("slName").setEnabled(false);
+			// 	this.getView().byId("strategy").setEnabled(false);
+			// }
 		},
 
 		onValueHelpCancelPress: function () {
@@ -906,12 +999,12 @@ sap.ui.define([
 				oValueHelpDialog.update();
 			});
 		},
-		selectline: function (oEvent) {
-			var table = this.getView().byId("Table"),
-				oRow = oEvent.getSource().getParent().getParent().getBindingContext().getPath().slice(6);
-			this.calculate(oRow, table);
-			table.addSelectionInterval(oRow, oRow);
-		},
+		// selectline: function (oEvent) {
+		// 	var table = this.getView().byId("Table"),
+		// 		oRow = oEvent.getSource().getParent().getParent().getBindingContext().getPath().slice(6);
+		// 	this.calculate(oRow, table);
+		// 	table.addSelectionInterval(oRow, oRow);
+		// },
 		onreset: function (oEvent) {
 			var primary = this.getView().byId("slName").getEnabled();
 			var select = this.getView().byId("slName").getSelectedKey();
@@ -950,12 +1043,12 @@ sap.ui.define([
 
 		},
 		onrow: function (oEvent) {
-			var primary = this.getView().byId("slName").getEnabled();
-			var oRow = oEvent.getParameter("rowIndex");
-			var table = this.getView().byId("Table");
-			if (primary) {
-				table.addSelectionInterval(oRow, oRow);
-			}
+			// var primary = this.getView().byId("slName").getEnabled();
+			// var oRow = oEvent.getParameter("rowIndex");
+			// var table = this.getView().byId("Table");
+			// if (primary) {
+			// 	table.addSelectionInterval(oRow, oRow);
+			// }
 		},
 		onFilter: function (oEvent) {
 			this.sSearchQuery = oEvent.getSource().getValue();
@@ -987,15 +1080,15 @@ sap.ui.define([
 				MessageToast.show("Enter valid Case Cost");
 				return;
 			}
-			if (this.getView().byId("casepack").getValue() === "") {
-				MessageToast.show("Enter valid Case Pack");
-				return;
-			}
+			// if (this.getView().byId("casepack").getValue() === "") {
+			// 	MessageToast.show("Enter valid Case Pack");
+			// 	return;
+			// }
 
 			//this.fnApplyFiltersAndOrdering(oEvent);
 			var that = this;
 			setTimeout(function () {
-				that.onunit();
+				that.onapply();
 			}, 250);
 		},
 
