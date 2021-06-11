@@ -27,7 +27,7 @@ sap.ui.define([
 ) {
 	"use strict";
 
-	return Controller.extend("com.ingles.retail_pricing.cost_association.controller.Master", {
+	return Controller.extend("Ingles.Mock.cost_association.controller.Master", {
 		getToday: function () {
 			var d = new Date(),
 				month = "" + (d.getMonth() + 1),
@@ -53,9 +53,9 @@ sap.ui.define([
 			this._oMultiInput.setTokens(this._getDefaultTokens());
 			// this.getView().byId("slName").setEnabled(false);
 			// this.getView().byId("strategy").setEnabled(false);
-			var scPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/columnsModel.json");
+			var scPath = jQuery.sap.getModulePath("Ingles.Mock.cost_association", "/test/data/columnsModel.json");
 			this.oColModel = new JSONModel(scPath);
-			var sPPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/products.json");
+			var sPPath = jQuery.sap.getModulePath("Ingles.Mock.on", "/test/data/products.json");
 			this.oProductsModel = new JSONModel(sPPath);
 			this.getView().setModel(this.oProductsModel);
 			this._messageManager = Core.getMessageManager();
@@ -89,7 +89,7 @@ sap.ui.define([
 				MessageToast.show("Please enter Price Family/Strategy/Vendor #");
 				return;
 			}
-			var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/CostAssoc.json");
+			var sPath = jQuery.sap.getModulePath("Ingles.Mock.on", "/test/data/CostAssoc.json");
 			var attModel = new JSONModel(sPath);
 			var dataArray = [];
 			var filteredArray = [];
@@ -227,7 +227,7 @@ sap.ui.define([
 			var sPath = oEvent.getSource().getParent().getBindingContext().sPath;
 			var selected = itemModel.getProperty(sPath);
 			if (selected.Family !== "") {
-				var filePath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/CostAssocFamily.json");
+				var filePath = jQuery.sap.getModulePath("Ingles.Mock.ta/CostAssocFamily.json");
 				var attModel = new JSONModel(filePath);
 				attModel.attachRequestCompleted(function () {
 					var dataArray = attModel.getData().Data;
@@ -242,7 +242,7 @@ sap.ui.define([
 		},
 
 		openFamilyPopup: function (action, selected, family, rowPath) {
-			this.FamilyDialog = sap.ui.xmlfragment("com.ingles.retail_pricing.cost_association.fragments.Family", this);
+			this.FamilyDialog = sap.ui.xmlfragment("Ingles.Mock.
 			var title = "";
 			var message = "";
 			var showContinue = true;
@@ -357,7 +357,7 @@ sap.ui.define([
 
 		getQuery: function (oArgs) {
 
-			// var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/data.json");
+			// var sPath = jQuery.sap.getModulePath("Ingles.Mock.
 			// var conditionTable = this.getView().byId("Table");
 			// var attModel = new JSONModel(sPath);
 			// attModel.setDefaultBindingMode("TwoWay");
@@ -486,7 +486,7 @@ sap.ui.define([
 		},
 
 		onAddRows: function (oEvent) {
-			this.addRowsDialog = sap.ui.xmlfragment("com.ingles.retail_pricing.cost_association.fragments.AddRows", this);
+			this.addRowsDialog = sap.ui.xmlfragment("Ingles.Mock.;
 
 			//this.getOwnerComponent().getModel("addrow").setData("");
 			this.addRowsDialog.setModel(this.getOwnerComponent().getModel("addrow"));
@@ -515,8 +515,8 @@ sap.ui.define([
 				}
 			}
 			if (flag) {
-				this.copyRowsDialog = sap.ui.xmlfragment("com.ingles.retail_pricing.cost_association.fragments.Copy", this);
-				var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/products.json");
+				this.copyRowsDialog = sap.ui.xmlfragment("Ingles.Mock.on.fragments.Copy", this);
+				var sPath = jQuery.sap.getModulePath("Ingles.Mock.cost_association", "/test/data/products.json");
 				var copymodel = new JSONModel(sPath);
 				//this.getOwnerComponent().getModel("addrow").setData("");
 				this.copyRowsDialog.setModel(copymodel);
@@ -667,14 +667,14 @@ sap.ui.define([
 			var count = this.getView().byId("Table").getBinding().iLength;
 			if (primary) {
 				if (select === "001" || strategy === "207") {
-					var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata.json");
+					var sPath = jQuery.sap.getModulePath("Ingles.Mock.cost_association", "/test/data/Pricingdata.json");
 					this.getView().byId("Ttitle").setText("Cost Association (" + 4 + ")");
 				} else {
-					sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata2.json");
+					sPath = jQuery.sap.getModulePath("Ingles.Mock.cost_association", "/test/data/Pricingdata2.json");
 					this.getView().byId("Ttitle").setText("Cost Association (" + 2 + ")");
 				}
 			} else {
-				sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/data.json");
+				sPath = jQuery.sap.getModulePath("Ingles.Mock.cost_association", "/test/data/data.json");
 				this.getView().byId("Ttitle").setText("Cost Association (" + count + ")");
 
 			}
@@ -795,7 +795,7 @@ sap.ui.define([
 				showSearchButton: false
 			});
 
-			this._oValueHelpDialog = sap.ui.xmlfragment("com.ingles.retail_pricing.cost_association.fragments.ValueHelpDialogFilterbar", this);
+			this._oValueHelpDialog = sap.ui.xmlfragment("Ingles.Mock.cost_association.fragments.ValueHelpDialogFilterbar", this);
 			this.getView().addDependent(this._oValueHelpDialog);
 
 			this._oValueHelpDialog.setRangeKeyFields([{
@@ -920,7 +920,7 @@ sap.ui.define([
 			});
 
 			this._oValueHelpDialogWithSuggestions = sap.ui.xmlfragment(
-				"com.ingles.retail_pricing.cost_association.fragments.ValueHelpDialogFilterbarWithSuggestions", this);
+				"Ingles.Mock.cost_association.fragments.ValueHelpDialogFilterbarWithSuggestions", this);
 			this.getView().addDependent(this._oValueHelpDialogWithSuggestions);
 
 			this._oValueHelpDialogWithSuggestions.setRangeKeyFields([{
@@ -1041,12 +1041,12 @@ sap.ui.define([
 
 			if (primary) {
 				if (select === "001" || strategy === "207") {
-					var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata.json");
+					var sPath = jQuery.sap.getModulePath("Ingles.Mock.cost_association", "/test/data/Pricingdata.json");
 				} else {
-					sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata2.json");
+					sPath = jQuery.sap.getModulePath("Ingles.Mock.cost_association", "/test/data/Pricingdata2.json");
 				}
 			} else {
-				sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/data.json");
+				sPath = jQuery.sap.getModulePath("Ingles.Mock.cost_association", "/test/data/data.json");
 
 			}
 

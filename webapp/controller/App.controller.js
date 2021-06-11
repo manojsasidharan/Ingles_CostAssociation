@@ -3,7 +3,7 @@ sap.ui.define([
 ], function (Controller) {
 	"use strict";
 
-	return Controller.extend("com.ingles.retail_pricing.cost_association.controller.View1", {
+	return Controller.extend("Ingles.Mock.cost_association.controller.View1", {
 		onInit: function () {
 
 		}

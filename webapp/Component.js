@@ -1,12 +1,12 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/ingles/retail_pricing/cost_association/model/models",
+	"Ingles/Mock/cost_association/model/models",
 	"sap/ui/model/json/JSONModel"	
 ], function (UIComponent, Device, models, JSONModel) {
 	"use strict";
 
-	return UIComponent.extend("com.ingles.retail_pricing.cost_association.Component", {
+	return UIComponent.extend("Ingles.Mock.cost_association.Component", {
 
 		metadata: {
 			manifest: "json"

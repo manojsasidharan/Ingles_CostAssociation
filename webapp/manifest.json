@@ -1,7 +1,7 @@
 {
 	"_version": "1.12.0",
 	"sap.app": {
-		"id": "com.ingles.retail_pricing.cost_association",
+		"id": "Ingles.Mock.cost_association",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
@@ -33,7 +33,7 @@
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
-			"viewName": "com.ingles.retail_pricing.cost_association.view.App",
+			"viewName": "Ingles.Mock.cost_association.view.App",
 			"type": "XML",
 			"async": true,
 			"id": "App"
@@ -66,7 +66,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "com.ingles.retail_pricing.cost_association.i18n.i18n"
+					"bundleName": "Ingles.Mock.cost_association.i18n.i18n"
 				}
 			}
 		},
@@ -82,7 +82,7 @@
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
 				"async": true,
-				"viewPath": "com.ingles.retail_pricing.cost_association.view",
+				"viewPath": "Ingles.Mock.cost_association.view",
 				"controlAggregation": "pages",
 				"controlId": "app",
 				"clearControlAggregation": false
@@ -107,7 +107,7 @@
 		}
 	},
 	"sap.platform.abap": {
-		"uri": "/sap/bc/ui5_ui5/sap/zig_cost_asso/webapp",
+		"uri": "/sap/bc/ui5_ui5/sap/zmockcost_asso/webapp",
 		"_version": "1.1.0"
 	}
 }
