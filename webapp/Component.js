@@ -25,14 +25,7 @@ sap.ui.define([
 			this.getRouter().initialize();
 			this.setModel(models.oViewModel(), "addrow");
 
-			var appControl = {
-				Currency: "USD",
-				headerExpanded: true,
-				Save: false,
-				caseCost: 0.00,
-				casePack: 0
-			};
-			this.setModel(new JSONModel(appControl), "appControl");
+			this.setModel(models.appControlModel(), "appControl");
 
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");

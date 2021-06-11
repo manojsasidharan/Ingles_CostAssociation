@@ -1,11 +1,15 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table">
-	<table:Table id="Table" alternateRowColors="true" fixedColumnCount="2" selectionMode="None" 
-	visibleRowCount="{=${/Data}.length}"
-	>
+	<table:Table id="Table" alternateRowColors="true" fixedColumnCount="2" selectionMode="None" visibleRowCount="{=${/Data}.length}">
 		<table:noData></table:noData>
 		<table:toolbar>
 			<Toolbar>
 				<Title id="Ttitle" text="Cost Association"/>
+				<ToolbarSpacer/>
+				<Label text="Hidden Columns"/>
+				<MultiComboBox id="hiddenColumns" name="hiddenColumns" items="{appControl>/AllHideableColumns}" width="150px"
+					selectionFinish=".onHideColumnsChange" selectedKeys="{appControl>/hiddenColumns}">
+					<core:Item key="{appControl>key}" text="{appControl>text}"/>
+				</MultiComboBox>
 				<ToolbarSpacer/>
 				<Label text="Case Cost"/>
 				<Input id="case" width="100px" textAlign="Right"
@@ -15,83 +19,98 @@
 			</Toolbar>
 		</table:toolbar>
 		<table:columns>
-			<table:Column name="Material" width="8rem" filterProperty="Material" sortProperty="Material" tooltip="Material">
-				<Label text="Material" design="Bold" wrapping="true"/>
+			<table:Column name="Material" width="10rem" filterProperty="Material" sortProperty="Material" tooltip="Material">
+				<Label text="Material" wrapping="true"/>
 				<table:template>
 					<HBox>
-						<core:Icon src="sap-icon://color-fill" class="size1 sapUiTinyMarginTop sapUiTinyMarginEnd" color="{= ${IsParent} ? '#f58d33' : '#0a6ed1' }" visible="true"></core:Icon>
-						<Input value="{Material}" editable="false" />
+						<core:Icon src="sap-icon://color-fill" class="size1 sapUiTinyMarginTop sapUiTinyMarginEnd"
+							color="{ parts: [{path: 'IsParent'}, {path: 'Family'}, {path: 'Material'}], formatter: '.colorCode' }" visible="true"></core:Icon>
+						<Input value="{Material}" editable="false"/>
+						<Button icon="sap-icon://SAP-icons-TNT/bdd-diagram" tooltip="Display Cost Family" press="showFamilyInfo"
+							visible="{= ${Family} !== '' ? true : false }"/>
 					</HBox>
 					<!--<Text text="{Material}" wrapping="false"/>-->
 				</table:template>
 			</table:Column>
 			<table:Column name="UPC" width="9rem" sortProperty="UPC" filterProperty="UPC" tooltip="UPC">
-				<Label text="UPC" design="Bold" wrapping="true"/>
+				<Label text="UPC"  wrapping="true"/>
 				<table:template>
 					<Input value="{UPC}" editable="false"/>
-					<!--<Text text="{LocationCode}" wrapping="false"/>-->
 				</table:template>
 			</table:Column>
-			<!--<table:Column name="Vendor" width="7rem" sortProperty="Vendor" filterProperty="Vendor" tooltip="Vendor">-->
-			<!--	<Label text="Vendor"/>-->
-			<!--	<table:template>-->
-			<!--		<Input value="{Vendor}" editable="false"/>-->
-			<!--<Text text="{Vendor}" wrapping="false"/>-->
-			<!--	</table:template>-->
-			<!--</table:Column>-->
-			<table:Column name="Description" sortProperty="Description" filterProperty="Description" tooltip="Description">
+			<table:Column name="Desc" sortProperty="Description" filterProperty="Description" tooltip="Description">
 				<!--width="15rem"-->
-				<Label text="Description" design="Bold" wrapping="false"/>
+				<Label text="Description"  wrapping="false"/>
 				<table:template>
 					<Text text="{Description}" wrapping="false"/>
 				</table:template>
 			</table:Column>
-			<table:Column name="Vendor_item" width="5rem" tooltip="Vendor Item #" hAlign="Center">
-				<Label text="Vendor Item #" wrapping="true" design="Bold"/>
+			<table:Column name="VItemNo" width="5rem" tooltip="Vendor Item #" hAlign="Center">
+				<Label text="Vendor Item #" wrapping="true" />
 				<table:template>
 					<Text text="{ path : 'Vendor_item', type : 'sap.ui.model.odata.type.String', constraints: { isDigitSequence : true, maxLength : 8 }}"
 						wrapping="false"/>
 				</table:template>
-			</table:Column>		
+			</table:Column>
 			<table:Column name="Vendor" width="4.5rem" tooltip="Vendor" hAlign="Center">
-				<Label text="Vendor #" design="Bold" wrapping="true"/>
+				<Label text="Vendor #"  wrapping="true"/>
 				<table:template>
 					<Text text="{Vendor}" wrapping="false"/>
 				</table:template>
 			</table:Column>
-			<table:Column name="Vendor_desc" width="10rem" tooltip="Vendor Name">
-				<Label text="Vendor Name" design="Bold" wrapping="false"/>
+			<table:Column name="VendDesc" width="10rem" tooltip="Vendor Name">
+				<Label text="Vendor Name"  wrapping="false"/>
 				<table:template>
 					<Text text="{Vendor_desc}" wrapping="false"/>
 				</table:template>
-			</table:Column>	
-			<table:Column name="Effective" width="5rem" tooltip="Current Cost" hAlign="Center">
-				<Label text="Current Cost" design="Bold" wrapping="true"/>
+			</table:Column>
+			<table:Column name="CurrRetail" width="5rem" tooltip="Retail Price" hAlign="Right">
+				<Label text="Retail Price"/>
 				<table:template>
-					<Label text="{effcost}"/>
+					<Text
+						text="{ parts: [ {path: 'RetailPrice'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"/>
 				</table:template>
-			</table:Column>		
-			<table:Column name="Case_Pack" width="3.5rem" tooltip="Last Cost" hAlign="Center">
-				<Label text="Case Pack" wrapping="true" design="Bold"/>
+			</table:Column>			
+			<table:Column name="LastCost" width="5rem" tooltip="Current Unit Cost" hAlign="Right">
+				<Label text="Last Unit Cost"  wrapping="true"/>
 				<table:template>
-					<Text text="{Case_Pack}" wrapping="false"/>
+					<Text text="{ parts: [ {path: 'UnitCost'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"/>
 				</table:template>
-			</table:Column>		
-			<table:Column name="Allowance" width="5rem" tooltip="Last Cost" hAlign="Center">
-				<Label text="Allowance" wrapping="true" design="Bold"/>
+			</table:Column>
+			<table:Column name="CasePack" width="3.5rem" tooltip="Case Pack" hAlign="Center">
+				<Label text="Case Pack" wrapping="true" />
 				<table:template>
-					<Text text="{Allowance}" wrapping="false"/>
+					<Text text="{CasePack}" wrapping="false"/>
 				</table:template>
-			</table:Column>				
-			<table:Column name="New" width="6rem" tooltip="New" headerSpan="2" hAlign="Center">
+			</table:Column>			
+			<table:Column name="LastCaseCost" width="5rem" tooltip="Current Case Cost" hAlign="Right">
+				<Label text="Last Case Cost"  wrapping="true"/>
+				<table:template>
+					<Text text="{ parts: [ {path: 'CaseCost'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"/>
+				</table:template>
+			</table:Column>
+			<table:Column name="Allowance" width="5rem" tooltip="Allowance" hAlign="Right">
+				<Label text="Allowance" wrapping="true" />
+				<table:template>
+					<Text text="{ parts: [ {path: 'Allowance'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+						wrapping="false"/>
+				</table:template>
+			</table:Column>
+			<table:Column name="LastGM" width="5rem" tooltip="Current GM %" hAlign="Right">
+				<Text text="Last GM %"/>
+				<table:template>
+					<Text text="{Margin}"/>
+				</table:template>
+			</table:Column>
+			<table:Column name="NewCaseCost" width="6rem" tooltip="New Case Cost" headerSpan="2" hAlign="Center">
 				<table:multiLabels>
 					<Label text="New" design="Bold"/>
 					<Label text="Case Cost"/>
 				</table:multiLabels>
 				<table:template>
-					<Input value="{ parts: [ {path: 'New_Cost'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
-						width="4rem" editable="false" textAlign="Right" 
-						valueState="{= ${appControl>/Save} ? 'Success' : 'None' }"  />
+					<Input
+						value="{ parts: [ {path: 'NewCaseCost'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+						width="4rem" editable="false" textAlign="Right" valueState="{= ${appControl>/Save} ? 'Success' : 'None' }"/>
 				</table:template>
 			</table:Column>
 			<table:Column name="valid_from" width="8rem" tooltip="Valid From" hAlign="Center">
@@ -100,33 +119,26 @@
 					<Label text="Valid From"/>
 				</table:multiLabels>
 				<table:template>
-					<DatePicker value="{valid_from}" valueFormat="MM/dd/yyyy" editable="false" valueState="{= ${appControl>/Save} ? 'Success' : 'None' }" ></DatePicker>
+					<DatePicker value="{valid_from}" valueFormat="MM/dd/yyyy" editable="false" valueState="{= ${appControl>/Save} ? 'Success' : 'None' }"></DatePicker>
 				</table:template>
 			</table:Column>
-			<table:Column name="Retail" width="5rem" tooltip="Retail" headerSpan="2" hAlign="Center">
-				<table:multiLabels>
-					<Label text="Retail" design="Bold"/>
-					<Label text="Price"/>
-				</table:multiLabels>
+			<table:Column name="NewUnitCost" width="5rem" tooltip="New Unit Cost" hAlign="Right">
+				<Label text="New Unit Cost"  wrapping="true"/>
 				<table:template>
-					<Label text="{RetailPrice}"/>
+					<Text
+						text="{ parts: [ {path: 'NewUnitCost'}, {path: 'Currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"/>
 				</table:template>
 			</table:Column>
-			<table:Column name="gm_p" width="5rem" tooltip="GM %" hAlign="Center">
-				<table:multiLabels>
-					<Label text="Retail" design="Bold"/>
-					<Label text="GM %"/>
-				</table:multiLabels>
+			<table:Column name="NewGM" width="5rem" tooltip="New GM %" hAlign="Right">
+				<Label text="New GM %"/>
 				<table:template>
-					<Label id="gm" text="{gm}"></Label>
-					<!--<DatePicker value="{valid_from}" valueFormat="MM/dd/yyyy"></DatePicker>-->
+					<Text id="gm" text="{newgm}"/>
 				</table:template>
 			</table:Column>
-			<table:Column name="gm_wa" width="6rem" tooltip="GM % With Allowance" hAlign="Center">
-				<Label text="GM % With Allowance" wrapping="true" design="Bold"/>
+			<table:Column name="NewGMAllow" width="6rem" tooltip="New GM % With Allowance" hAlign="Right">
+				<Label text="GM % With Allowance" wrapping="true" />
 				<table:template>
-					<Label id="allowgm" text="{gmallow}"></Label>
-					<!--<DatePicker value="{valid_from}" valueFormat="MM/dd/yyyy"></DatePicker>-->
+					<Text id="allowgm" text="{newgmallow}"/>
 				</table:template>
 			</table:Column>
 		</table:columns>

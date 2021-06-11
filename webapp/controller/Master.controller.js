@@ -28,6 +28,22 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("com.ingles.retail_pricing.cost_association.controller.Master", {
+		getToday: function () {
+			var d = new Date(),
+				month = "" + (d.getMonth() + 1),
+				day = "" + d.getDate(),
+				year = d.getFullYear();
+
+			if (month.length < 2) {
+				month = "0" + month;
+			}
+			if (day.length < 2) {
+				day = "0" + day;
+			}
+
+			return [month, day, year].join("/");
+		},
+
 		onInit: function () {
 			this.oRouter = this.getOwnerComponent().getRouter();
 			this.oRouter.getRoute("Master").attachPatternMatched(this.getQuery, this);
@@ -63,187 +79,16 @@ sap.ui.define([
 
 		},
 
-		getToday: function () {
-			var d = new Date(),
-				month = "" + (d.getMonth() + 1),
-				day = "" + d.getDate(),
-				year = d.getFullYear();
-
-			if (month.length < 2) {
-				month = "0" + month;
-			}
-			if (day.length < 2) {
-				day = "0" + day;
-			}
-
-			return [month, day, year].join("/");
-		},
-		onapply: function (oEvent) {
-			var value = this.getView().byId("case").getValue();
-			// var select = this.getView().byId("slName").getSelectedKey();
-			var datevalue = this.getView().byId("date").getDateValue();
-			// var pack = this.getView().byId("casepack").getValue();
-			var date = new Date(datevalue);
-			// var allow = this.getView().byId("allow").getValue();
-			var datef = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() :
-				('0' + date.getDate())) + '/' + date.getFullYear();
-				
-			this.calculate(value, datef);
-			this.getOwnerComponent().getModel("appControl").setProperty("/Save", true);
-			// var selected = this.getView().byId("Table").getSelectedIndices();
-
-			// if (selected.length === 0) {
-			// 	MessageToast.show("Select atleast one row");
-			// 	return;
-			// }
-			// var number;
-			// if (select === "001") {
-			// 	number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
-			// } else if (select === "002") {
-			// 	number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
-			// } else {
-			// 	number = (parseFloat(value, 2)) / pack; //( parseFloat(value, 2) - parseFloat(allow,2) ) / pack;
-			// }
-			// this.getView().byId("unitCost").setValue(number.toFixed(2));
-			// var allowance = this.getView().byId("allow").getValue();
-			//var oRows = oTable.getRows();
-			// for (var i = 0; i < selected.length; i++) {
-			// 	model.setProperty("/Data/" + selected[i] + "/Price", value);
-			// 	model.setProperty("/Data/" + selected[i] + "/valid_from", datef);
-			// 	// model.setProperty("/Data/" + selected[i] + "/Allowance", allowance);
-			// 	model.setProperty("/Data/" + selected[i] + "/Last_Cost", pack);
-			// 	//var oCell = oRows[selected[i]].getCells()[3];
-			// 	//oCell.getItems()[0].setValue(value);
-			// 	//oCell = oRows[selected[i]].getCells()[4];
-			// 	//oCell.setDateValue(datevalue);
-			// 	this.calculate(selected[i], oTable);
-			// }
-
-		},
-
-		calculate: function (NewCost, NewValidFrom) {
-
-			// // var cost = this.getView().byId("unitCost").getValue();
-			// var model = this.getView().byId("Table").getModel();
-			// var retailprice = model.getProperty("/Data/" + row + "/RetailPrice");
-			// var allowance = model.getProperty("/Data/" + row + "/Allowance");
-			// var cost = model.getProperty("/Data/" + row + "/Price") / model.getProperty("/Data/" + row + "/Last_Cost");
-			// allowance = (isNaN(allowance)) ? 0 : allowance;
-			// var calculatedallow, finalallow;
-			// /*			var casecost = this.getView().byId("case").getValue();
-			// 			var casepack = this.getView().byId("casepack").getValue();*/
-
-			// var calculated = ((parseFloat(retailprice, 2) - parseFloat(cost, 2)) / parseFloat(retailprice, 2)) * 100;
-			// calculatedallow = ((parseFloat(retailprice, 2) - parseFloat(cost, 2) + parseFloat(allowance, 2)) / parseFloat(retailprice, 2)) *
-			// 	100;
-
-			// var finalcal = isNaN(calculated) ? 0 : calculated.toFixed(2);
-			// finalallow = isNaN(calculatedallow) ? 0 : calculatedallow.toFixed(2);
-			// var check = model.getProperty("/Data/" + row + "/Material");
-			// if (check !== "") {
-			// 	model.setProperty("/Data/" + row + "/gm", finalcal);
-			// 	model.setProperty("/Data/" + row + "/allow", finalallow);
-			// 	// oTable.getRows()[row].getCells()[12].setText();
-			// 	// oTable.getRows()[row].getCells()[13].setText(finalallow);
-			// }
-
-			var oTable = this.getView().byId("Table");
-			var model = oTable.getModel();
-			var rowPath = "";
-			var tableData = model.getProperty("/Data");
-			var RetailPrice = 0,
-				CaseCost = 0,
-				CasePack = 1,
-				Allowance = 0,
-				GM = 0,
-				GMallow = 0;
-			for (var i = 0; i < tableData.length; i++) {
-				
-				if (NewCost !== "")
-					tableData[i].New_Cost = NewCost;
-				if (NewValidFrom !== "")
-					tableData[i].valid_from = NewValidFrom;
-					
-				RetailPrice = tableData[i].RetailPrice;	
-				CaseCost =  tableData[i].New_Cost;	
-				CasePack = tableData[i].Case_Pack;	
-				Allowance = tableData[i].Allowance;	
-				
-				GM = ((parseFloat(RetailPrice,2 ) - (parseFloat(CaseCost, 2) / parseFloat(CasePack, 2))) / parseFloat(RetailPrice, 2)) * 100;	
-				tableData[i].gm = isNaN(GM) ? 0 : GM.toFixed(2);
-				
-				GMallow = ((parseFloat(RetailPrice, 2) - (parseFloat(CaseCost, 2) / parseFloat(CasePack, 2)) + parseFloat(Allowance, 2)) / parseFloat(RetailPrice, 2)) * 100;	
-				tableData[i].gmallow = isNaN(GMallow) ? 0 : GMallow.toFixed(2);
-				
-				rowPath = "/Data/" + i;
-				model.setProperty(rowPath, tableData[i]);
-			}
-			model.refresh();
-
-		},
-		oncasecost: function () {
-			var value = this.getView().byId("case").getValue();
-			var select = this.getView().byId("slName").getSelectedKey();
-			var pack = this.getView().byId("casepack").getValue();
-			// var allow = this.getView().byId("allow").getValue();
-			var number;
-			if (pack > 0) {
-				if (select === "001") {
-					number = (parseFloat(value, 2)) / parseFloat(pack, 2); //( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
-				} else if (select === "002") {
-					number = (parseFloat(value, 2)) / parseFloat(pack, 2); //( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
-				} else {
-					number = (parseFloat(value, 2)) / parseFloat(pack, 2); //( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
-				}
-				this.getView().byId("unitCost").setValue(number.toFixed(2));
-			}
-		},
 		onSearch: function (oEvent) {
-			//	debugger;
-			//this.getView().byId("messagepage").setVisible(false);
-			// var primary = this.getView().byId("slName").getEnabled();
 			var family = this.getView().byId("Family").getSelectedKey();
 			var strategy = this.getView().byId("Strategy").getSelectedKey();
 			var vendTokens = this.getView().byId("multiInput").getTokens();
 			var conditionTable = this.getView().byId("Table");
-			
-			if(family === "" && strategy === "" && vendTokens.length === 0)
-			{
+
+			if (family === "" && strategy === "" && vendTokens.length === 0) {
 				MessageToast.show("Please enter Price Family/Strategy/Vendor #");
 				return;
 			}
-			
-			// var casecost = this.getView().byId("case").getValue();
-			// var count = this.getView().byId("Table").getBinding().iLength;
-			// var afilters = [];
-			// var tokens = this.getView().byId("multiInput").getTokens();
-
-			// if ((select === "0" && strategy === "0") & primary) {
-			// 	MessageToast.show("Please select Price Family, Price Strategy or Vendor");
-			// 	return;
-			// }
-			// if(casecost === ""){
-			// 	MessageToast.show("Please enter Case Cost");
-			// 	return;
-			// }
-			// if (primary) {
-
-			// 	if (select === "001" || strategy === "207") {
-			// 		this.getView().byId("Ttitle").setText("Cost Association (" + 4 + ")");
-			// 		var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata.json");
-
-			// 	} else {
-			// 		this.getView().byId("Ttitle").setText("Cost Association (" + 2 + ")");
-			// 		sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/Pricingdata2.json");
-
-			// 	}
-
-			// } else {
-			// 	sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/data.json");
-
-			// 	this.getView().byId("Ttitle").setText("Cost Association (" + count + ")");
-			// }
-
 			var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/CostAssoc.json");
 			var attModel = new JSONModel(sPath);
 			var dataArray = [];
@@ -252,7 +97,7 @@ sap.ui.define([
 			attModel.attachRequestCompleted(function () {
 				dataArray = attModel.getData().Data;
 				for (var i = 0; i < dataArray.length; i++) {
-					if (((family !== "" && dataArray[i].Family === family) || family === "") && ((strategy !== "" && dataArray[i].strategy ===
+					if (((family !== "" && dataArray[i].Family === family) || family === "") && ((strategy !== "" && dataArray[i].Strategy ===
 							strategy) || strategy === "")) {
 						if (vendTokens.length === 0)
 							filteredArray.push(dataArray[i]);
@@ -271,63 +116,245 @@ sap.ui.define([
 				}));
 				conditionTable.bindRows("/Data");
 				this.getView().byId("Ttitle").setText("Cost Association (" + filteredArray.length + ")");
-				this.calculate("", "");
+				this.calculate(true, "", "");
 
 			}.bind(this));
 
-			// this.getView().setModel(attModel);
-			// conditionTable.bindRows("/Data");
-			// this.getView().byId("Table").rerender();
-			// var aFilters = [];
-			// if(family !=="" && family !== undefined)
-			// {
-			// 	aFilters.push(new Filter({
-			// 				path: "Family",
-			// 				operator: FilterOperator.Contains,
-			// 				value1: family.toString()
-			// 			}));
+		},
 
-			// }
-			// if(strategy !=="" && strategy !== undefined)
-			// {
-			// 	aFilters.push(new Filter({
-			// 				path: "Strategy",
-			// 				operator: FilterOperator.Contains,
-			// 				value1: strategy.toString()
-			// 			}));
+		calculate: function (DefaultValues, NewCost, NewValidFrom) {
+			var oTable = this.getView().byId("Table");
+			var oModel = oTable.getModel();
+			var rowPath = "";
+			// var tableData = model.getProperty("/Data");
+			// var RetailPrice = 0,
+			// 	CaseCost = 0,
+			// 	CasePack = 1,
+			// 	Allowance = 0,
+			// 	GM = 0,
+			// 	GMallow = 0;
+			for (var i = 0; i < oModel.getData().Data.length; i++) {
+				rowPath = "/Data/" + i;
+				this.calculateRow(oModel, DefaultValues, NewCost, NewValidFrom, rowPath);
 
-			// }			
-			// conditionTable.getBinding().filter(aFilters);
+				// if (NewCost !== "")
+				// 	tableData[i].New_Cost = NewCost;
+				// if (NewValidFrom !== "")
+				// 	tableData[i].valid_from = NewValidFrom;
 
-			// attModel.refresh();
-			// if (!primary) {
-			// 	for (var i = 0; i < tokens.length; i++) {
-			// 		var oFilter = new Filter("Vendor", FilterOperator.EQ, tokens[i].getKey());
-			// 		afilters.push(oFilter);
-			// 	}
-			// 	conditionTable.getBinding().filter(afilters);
-			// 	var title = this.getView().byId("Ttitle");
-			// 	conditionTable.getBinding().attachChange(function (oEvent1) {
-			// 		title.setText("Cost Association (" + oEvent1.getSource().iLength + ")");
-			// 	});
-			// }
+				// RetailPrice = tableData[i].RetailPrice;	
+				// CaseCost =  tableData[i].New_Cost;	
+				// CasePack = tableData[i].Case_Pack;	
+				// Allowance = tableData[i].Allowance;	
 
-			// if (primary) {
-			// 	conditionTable.setEnableSelectAll(false);
-			// 	if (select === "001") {
-			// 		conditionTable.addSelectionInterval(0, 3);
-			// 	} else if (select === "002") {
-			// 		conditionTable.addSelectionInterval(0, 1);
-			// 	}
-			// } else {
-			// 	conditionTable.setEnableSelectAll(true);
-			// 	conditionTable.removeSelectionInterval(0, 3);
-			// }
-			// this.getView().byId("Table").rerender();
-			// this.getView().byId("Table").getModel().refresh();
-			// this.onfirstdisplay();
+				// GM = ((parseFloat(RetailPrice,2 ) - (parseFloat(CaseCost, 2) / parseFloat(CasePack, 2))) / parseFloat(RetailPrice, 2)) * 100;	
+				// tableData[i].gm = isNaN(GM) ? 0 : GM.toFixed(2);
+
+				// GMallow = ((parseFloat(RetailPrice, 2) - (parseFloat(CaseCost, 2) / parseFloat(CasePack, 2)) + parseFloat(Allowance, 2)) / parseFloat(RetailPrice, 2)) * 100;	
+				// tableData[i].gmallow = isNaN(GMallow) ? 0 : GMallow.toFixed(2);
+
+				// rowPath = "/Data/" + i;
+				// model.setProperty(rowPath, tableData[i]);
+			}
+			oModel.refresh();
 
 		},
+
+		calculateRow: function (oModel, DefaultValues, NewCaseCost, NewEffDate, rowPath) {
+			var tableData = oModel.getProperty(rowPath);
+			var lRetailPrice = 0;
+			var lNewCaseCost = 0;
+			var lCasePack = 0;
+			var lAllowance = 0;
+			var lGM = 0,
+				lGMallow = 0;
+
+			if (NewEffDate !== "") {
+				tableData.valid_from = NewEffDate;
+			}
+
+			if (NewCaseCost !== "") {
+				tableData.NewCaseCost = NewCaseCost;
+				tableData.NewUnitCost = NewCaseCost / tableData.CasePack;
+			} else if (DefaultValues) {
+				tableData.NewUnitCost = tableData.UnitCost;
+				tableData.NewCaseCost = tableData.UnitCost * tableData.CasePack;
+				tableData.NewCaseCost = tableData.NewCaseCost.toFixed(2);
+				tableData.CaseCost = tableData.UnitCost * tableData.CasePack;
+				tableData.CaseCost = tableData.CaseCost.toFixed(2);
+				lGM = ((parseFloat(tableData.RetailPrice, 2) - parseFloat(tableData.UnitCost)) / parseFloat(tableData.RetailPrice, 2)) * 100;
+				tableData.Margin = isNaN(lGM) ? 0 : lGM.toFixed(2);
+			}
+
+			lRetailPrice = tableData.RetailPrice;
+			lNewCaseCost = tableData.NewCaseCost;
+			lCasePack = tableData.CasePack;
+			lAllowance = tableData.Allowance;
+
+			lGM = ((parseFloat(lRetailPrice, 2) - (parseFloat(lNewCaseCost, 2) / parseFloat(lCasePack, 2))) / parseFloat(lRetailPrice, 2)) *
+				100;
+			tableData.newgm = isNaN(lGM) ? 0 : lGM.toFixed(2);
+
+			lGMallow = ((parseFloat(lRetailPrice, 2) - (parseFloat(lNewCaseCost, 2) / parseFloat(lCasePack, 2)) + parseFloat(lAllowance, 2)) /
+				parseFloat(lRetailPrice, 2)) * 100;
+			tableData.newgmallow = isNaN(lGMallow) ? 0 : lGMallow.toFixed(2);
+
+			oModel.setProperty(rowPath, tableData);
+
+		},
+
+		onapply: function (oEvent) {
+			var value = this.getView().byId("case").getValue();
+			var datevalue = this.getView().byId("date").getDateValue();
+			var date = new Date(datevalue);
+			var datef = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() :
+				('0' + date.getDate())) + '/' + date.getFullYear();
+			this.calculate(false, value, datef);
+			this.getOwnerComponent().getModel("appControl").setProperty("/Save", true);
+		},
+
+		colorCode: function (isParent, Family, Material) {
+			if (Family !== "") {
+				if (isParent) return "#0d6733"; //Dark Green
+				else return "#16ab54"; //Light Green
+			} else if (Material !== "" && Material !== undefined)
+				return "#72b5f8"; //Blue
+			else return "";
+		},
+
+		showFamilyInfo: function (oEvent) {
+			var itemModel = this.getView().byId("Table").getModel();
+			var sPath = oEvent.getSource().getParent().getBindingContext().sPath;
+			var selected = itemModel.getProperty(sPath);
+			if (selected.Family !== "") {
+				var filePath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/CostAssocFamily.json");
+				var attModel = new JSONModel(filePath);
+				attModel.attachRequestCompleted(function () {
+					var dataArray = attModel.getData().Data;
+					var familyinfo = dataArray.filter(function (obj) {
+						return obj.Family.toString() === selected.Family.toString();
+					});
+					if (familyinfo.length > 1)
+						this.openFamilyPopup("DISPLAY", selected, familyinfo, -1);
+					else MessageToast.show("Selected item is not part of a Cost Family");
+				}.bind(this));
+			}
+		},
+
+		openFamilyPopup: function (action, selected, family, rowPath) {
+			this.FamilyDialog = sap.ui.xmlfragment("com.ingles.retail_pricing.cost_association.fragments.Family", this);
+			var title = "";
+			var message = "";
+			var showContinue = true;
+			if (action === "INPUT") {
+				if (selected.IsParent) {
+					title = "Parent item of Cost Family entered";
+					message = "Click Continue to insert parent item";
+					showContinue = true;
+				} else {
+					title = "Child item of Cost Family entered";
+					message = "Click Replace to replace with parent item";
+					showContinue = false;
+				}
+			} else if (action === "DISPLAY") {
+				title = "Cost Family Details";
+				// message = "You have selected a " + (selected.IsParent ? "Parent" : "Child") + " item";
+				showContinue = true;
+			}
+
+			var popupinfo = new JSONModel({
+				title: title,
+				message: message,
+				selected: selected,
+				familyID: selected.Family,
+				familyinfo: family,
+				rowPath: rowPath,
+				action: action,
+				showContinue: showContinue
+			});
+			this.getView().setModel(popupinfo, "family");
+			this.getView().addDependent(this.FamilyDialog);
+			this.FamilyDialog.open();
+		},
+		closeFamilyPopup: function () {
+			var popupinfo = this.getView().getModel("family").getData();
+			if (popupinfo.action === "INPUT") {
+				if (popupinfo.selected.IsParent) {
+					popupinfo.selected = this.setMargins(popupinfo.selected);
+					this.getView().getModel().setProperty(popupinfo.rowPath, popupinfo.selected);
+				} else {
+					var selected = popupinfo.familyinfo.filter(function (obj) {
+						return obj.IsParent;
+					});
+					if (selected.length > 0) {
+						selected[0] = this.setMargins(selected[0]);
+						this.getView().getModel().setProperty(popupinfo.rowPath, selected[0]);
+					}
+				}
+			}
+			this.cancelFamilyPopup();
+		},
+		cancelFamilyPopup: function () {
+			this.FamilyDialog.close();
+			this.FamilyDialog.destroy();
+		},
+		
+		setHideableColumns: function () {  //NOT USED YET
+			var appControlData = this.getOwnerComponent().getModel("appControl").getData();
+			appControlData.hiddenColumns = [];
+			// var mode = this.getView().getModel("query").getProperty("/Mode");
+			// var add = true;
+			// appControlData.ModeHideableColumns = [];
+			// for (var i = 0; i < appControlData.AllHideableColumns.length; i++) {
+			// 	add = true;
+			// 	if (mode === "01" && appControlData.ColumnsHiddenInCreate.indexOf(appControlData.AllHideableColumns[i].key) >= 0)
+			// 		add = false;
+			// 	if (add) appControlData.ModeHideableColumns.push(appControlData.AllHideableColumns[i]);
+			// }
+			appControlData.ModeHideableColumns = appControlData.AllHideableColumns;
+			this.getOwnerComponent().getModel("appControl").setData(appControlData);
+		},
+		
+		onHideColumnsChange: function (oEvent) {
+			// var mode = this.getView().getModel("query").getProperty("/Mode");
+			var appControlData = this.getOwnerComponent().getModel("appControl").getData();
+			var aColumnsSelected = appControlData.hiddenColumns;
+
+			var aTableColumns = this.getView().byId("Table").getColumns();
+			var toHide = false;
+			for (var i = 0; i < aTableColumns.length; i++) {
+				toHide = false;
+				for (var j = 0; j < aColumnsSelected.length; j++) {
+					if (aTableColumns[i].getName() === aColumnsSelected[j]) {
+						toHide = true;
+						break;
+					}
+				}
+				if (toHide)
+					aTableColumns[i].setVisible(false);
+				else
+					aTableColumns[i].setVisible(true);
+			}
+		},
+
+		// oncasecost: function () {
+		// 	var value = this.getView().byId("case").getValue();
+		// 	var select = this.getView().byId("slName").getSelectedKey();
+		// 	var pack = this.getView().byId("casepack").getValue();
+		// 	// var allow = this.getView().byId("allow").getValue();
+		// 	var number;
+		// 	if (pack > 0) {
+		// 		if (select === "001") {
+		// 			number = (parseFloat(value, 2)) / parseFloat(pack, 2); //( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
+		// 		} else if (select === "002") {
+		// 			number = (parseFloat(value, 2)) / parseFloat(pack, 2); //( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
+		// 		} else {
+		// 			number = (parseFloat(value, 2)) / parseFloat(pack, 2); //( parseFloat(value, 2) - parseFloat(allow,2) ) / parseFloat(pack,2);
+		// 		}
+		// 		this.getView().byId("unitCost").setValue(number.toFixed(2));
+		// 	}
+		// },
+
 		getQuery: function (oArgs) {
 
 			// var sPath = jQuery.sap.getModulePath("com.ingles.retail_pricing.cost_association", "/test/data/data.json");
@@ -347,37 +374,38 @@ sap.ui.define([
 			// }, 1000);
 
 		},
+
+		// onfirstdisplay: function (oEvent) {
+		// 	var oTable = this.getView().byId("Table");
+		// 	var oRows = oTable.getRows();
+		// 	for (var i = 0; i < oRows.length; i++) {
+		// 		// var oCell = oRows[i].getCells()[4];
+		// 		// oCell.setProperty("editable", true);
+		// 		// oCell = oRows[i].getCells()[5];
+		// 		// var oCell.setProperty("editable", true);
+		// 		// var oCell = oRows[i].getCells()[0];
+		// 		// oCell.setProperty("editable", true);
+		// 		// oCell = oRows[i].getCells()[1];
+		// 		// oCell.setProperty("editable", true);
+		// 		// oCell = oRows[i].getCells()[4];
+		// 		// oCell.setProperty("editable", false);
+		// 		// oCell = oRows[i].getCells()[3];
+		// 		// oCell.getItems()[0].setProperty("editable", true);
+		// 		// oCell = oRows[i].getCells()[4];
+		// 		// oCell.setProperty("editable", true);
+		// 	}
+		// 	this.onEditAction();
+		// 	var that = this;
+		// 	setTimeout(function () {
+		// 		that.firstcalculate();
+		// 	}, 1000);
+		// },
+
 		ongroup: function () {
 			var aSorters = [];
 			aSorters.push(new Sorter("Vendor", false, true));
 			this.getView().byId("Table").getBinding("rows").sort(aSorters);
 			this.getView().byId("Table").rerender();
-		},
-		onfirstdisplay: function (oEvent) {
-
-			var oTable = this.getView().byId("Table");
-			var oRows = oTable.getRows();
-			for (var i = 0; i < oRows.length; i++) {
-				// var oCell = oRows[i].getCells()[4];
-				// oCell.setProperty("editable", true);
-				// oCell = oRows[i].getCells()[5];
-				// var oCell.setProperty("editable", true);
-				// var oCell = oRows[i].getCells()[0];
-				// oCell.setProperty("editable", true);
-				// oCell = oRows[i].getCells()[1];
-				// oCell.setProperty("editable", true);
-				// oCell = oRows[i].getCells()[4];
-				// oCell.setProperty("editable", false);
-				// oCell = oRows[i].getCells()[3];
-				// oCell.getItems()[0].setProperty("editable", true);
-				// oCell = oRows[i].getCells()[4];
-				// oCell.setProperty("editable", true);
-			}
-			this.onEditAction();
-			var that = this;
-			setTimeout(function () {
-				that.firstcalculate();
-			}, 1000);
 		},
 
 		firstcalculate: function () {
@@ -507,6 +535,7 @@ sap.ui.define([
 			this.copyRowsDialog.destroy();
 			MessageToast.show("Vendor clone is successfully executed");
 		},
+
 		onAddDialogSubmit: function (oEvent) {
 			this.addRowsDialog.close();
 			this.addRowsDialog.destroy();
